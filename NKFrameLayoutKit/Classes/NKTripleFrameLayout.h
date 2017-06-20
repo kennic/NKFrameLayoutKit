@@ -8,6 +8,9 @@
 
 #import "NKDoubleFrameLayout.h"
 
+/**
+Triple FrameLayout class that handles three views' frame
+*/
 @interface NKTripleFrameLayout : NKDoubleFrameLayout
 
 @property (nonatomic, retain) NKDoubleFrameLayout	*leftContentLayout;

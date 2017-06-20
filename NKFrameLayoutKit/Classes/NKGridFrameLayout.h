@@ -9,17 +9,23 @@
 #import "NKDoubleFrameLayout.h"
 #import "NKFrameLayout.h"
 
+/**
+Grid FrameLayout class that handles multi views' frame
+*/
 @interface NKGridFrameLayout : NKFrameLayout
 
 @property (nonatomic, strong) NSMutableArray<NKFrameLayout*> *frameArray;
 @property (nonatomic, assign) NSInteger					numberOfFrames;
 @property (nonatomic, assign) NKFrameLayoutDirection	layoutDirection;
 @property (nonatomic, assign) NKFrameLayoutAlignment	layoutAlignment;
-@property (nonatomic, assign) CGFloat					spacing; // space between frames, will be applied only when primary-aligned frame is non-zero
-@property (nonatomic, assign) BOOL						intrinsicSizeEnabled; // YES to returns total contents width, NO to use specified width in sizeThatFits. Default is YES.
-@property (nonatomic, assign) BOOL						autoRemoveTargetView; // YES to auto remove targetView from its superview when removing its frameLayout. Default is NO.
-@property (nonatomic, assign) BOOL						roundUpValue; // YES to round cell size using roundf(), default is NO
-@property (nonatomic, assign) BOOL						shouldCacheSize;
+/** Space between frames, will be applied only when primary-aligned frame is non-zero */
+@property (nonatomic, assign) CGFloat					spacing;
+/** Set to YES to returns total contents width, NO to use specified width in sizeThatFits. Default is YES. */
+@property (nonatomic, assign) BOOL						intrinsicSizeEnabled;
+/** Set to YES to auto remove targetView from its superview when removing its frameLayout. Default is NO. */
+@property (nonatomic, assign) BOOL						autoRemoveTargetView;
+/** YES to round cell size using roundf(), default is NO */
+@property (nonatomic, assign) BOOL						roundUpValue;
 
 - (instancetype) initWithDirection:(NKFrameLayoutDirection)direction;
 - (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;

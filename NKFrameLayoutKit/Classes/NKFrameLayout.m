@@ -7,7 +7,6 @@
 //
 
 #import "NKFrameLayout.h"
-#import "CGRect_Extends.h"
 
 #define FRAME_DEBUG 1
 

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "NKFrameLayoutKit_Example.app"
-               BlueprintName = "NKFrameLayoutKit_Example"
+               BlueprintIdentifier = "63975AFF1F0A1B020091CB72"
+               BuildableName = "NKFrameLayoutExample.app"
+               BlueprintName = "NKFrameLayoutExample"
                ReferencedContainer = "container:NKFrameLayoutKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,23 +28,13 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "NKFrameLayoutKit_Tests.xctest"
-               BlueprintName = "NKFrameLayoutKit_Tests"
-               ReferencedContainer = "container:NKFrameLayoutKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "NKFrameLayoutKit_Example.app"
-            BlueprintName = "NKFrameLayoutKit_Example"
+            BlueprintIdentifier = "63975AFF1F0A1B020091CB72"
+            BuildableName = "NKFrameLayoutExample.app"
+            BlueprintName = "NKFrameLayoutExample"
             ReferencedContainer = "container:NKFrameLayoutKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "NKFrameLayoutKit_Example.app"
-            BlueprintName = "NKFrameLayoutKit_Example"
+            BlueprintIdentifier = "63975AFF1F0A1B020091CB72"
+            BuildableName = "NKFrameLayoutExample.app"
+            BlueprintName = "NKFrameLayoutExample"
             ReferencedContainer = "container:NKFrameLayoutKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "NKFrameLayoutKit_Example.app"
-            BlueprintName = "NKFrameLayoutKit_Example"
+            BlueprintIdentifier = "63975AFF1F0A1B020091CB72"
+            BuildableName = "NKFrameLayoutExample.app"
+            BlueprintName = "NKFrameLayoutExample"
             ReferencedContainer = "container:NKFrameLayoutKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -13,13 +13,22 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		63975B031F0A1B020091CB72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63975B021F0A1B020091CB72 /* AppDelegate.swift */; };
+		63975B051F0A1B020091CB72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63975B041F0A1B020091CB72 /* ViewController.swift */; };
+		63975B081F0A1B020091CB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63975B061F0A1B020091CB72 /* Main.storyboard */; };
+		63975B0A1F0A1B020091CB72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63975B091F0A1B020091CB72 /* Assets.xcassets */; };
+		63975B0D1F0A1B020091CB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */; };
+		E2E299137C17DFD042D9698A /* Pods_NKFrameLayoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56265F0D9ABE199E0F6BF6B2 /* Pods_NKFrameLayoutExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		11B627A53D3593B5424F13BA /* NKFrameLayoutKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = NKFrameLayoutKit.podspec; path = ../NKFrameLayoutKit.podspec; sourceTree = "<group>"; };
+		11B627A53D3593B5424F13BA /* NKFrameLayoutKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NKFrameLayoutKit.podspec; path = ../NKFrameLayoutKit.podspec; sourceTree = "<group>"; };
 		26CE7BADFEB42C983806CCCB /* Pods-NKFrameLayoutKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NKFrameLayoutKit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NKFrameLayoutKit_Tests/Pods-NKFrameLayoutKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		32ED5039943C26C2C93F2DAC /* Pods-NKFrameLayoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NKFrameLayoutExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		3D146B91B11FC796FE4FA39C /* Pods-NKFrameLayoutKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NKFrameLayoutKit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NKFrameLayoutKit_Tests/Pods-NKFrameLayoutKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4FE5C1D84469870EB3E9E4AE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		3D3546EAD4F6041198B90002 /* Pods-NKFrameLayoutExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NKFrameLayoutExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample.release.xcconfig"; sourceTree = "<group>"; };
+		4FE5C1D84469870EB3E9E4AE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		56265F0D9ABE199E0F6BF6B2 /* Pods_NKFrameLayoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NKFrameLayoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -29,7 +38,14 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		776E087EF31077B9538C9D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		63975B001F0A1B020091CB72 /* NKFrameLayoutExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NKFrameLayoutExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63975B021F0A1B020091CB72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		63975B041F0A1B020091CB72 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		63975B071F0A1B020091CB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		63975B091F0A1B020091CB72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		63975B0C1F0A1B020091CB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		63975B0E1F0A1B020091CB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		776E087EF31077B9538C9D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A743AC0FE1CBCE8BF4281AF5 /* Pods_NKFrameLayoutKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NKFrameLayoutKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,6 +61,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63975AFD1F0A1B020091CB72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2E299137C17DFD042D9698A /* Pods_NKFrameLayoutExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -52,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
+				63975B011F0A1B020091CB72 /* NKFrameLayoutExample */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
@@ -63,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				6003F5AE195388D20070C39A /* NKFrameLayoutKit_Tests.xctest */,
+				63975B001F0A1B020091CB72 /* NKFrameLayoutExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,6 +101,7 @@
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				A743AC0FE1CBCE8BF4281AF5 /* Pods_NKFrameLayoutKit_Tests.framework */,
+				56265F0D9ABE199E0F6BF6B2 /* Pods_NKFrameLayoutExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,11 +135,26 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		63975B011F0A1B020091CB72 /* NKFrameLayoutExample */ = {
+			isa = PBXGroup;
+			children = (
+				63975B021F0A1B020091CB72 /* AppDelegate.swift */,
+				63975B041F0A1B020091CB72 /* ViewController.swift */,
+				63975B061F0A1B020091CB72 /* Main.storyboard */,
+				63975B091F0A1B020091CB72 /* Assets.xcassets */,
+				63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */,
+				63975B0E1F0A1B020091CB72 /* Info.plist */,
+			);
+			path = NKFrameLayoutExample;
+			sourceTree = "<group>";
+		};
 		B8C980190EDA2867137019E4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				3D146B91B11FC796FE4FA39C /* Pods-NKFrameLayoutKit_Tests.debug.xcconfig */,
 				26CE7BADFEB42C983806CCCB /* Pods-NKFrameLayoutKit_Tests.release.xcconfig */,
+				32ED5039943C26C2C93F2DAC /* Pods-NKFrameLayoutExample.debug.xcconfig */,
+				3D3546EAD4F6041198B90002 /* Pods-NKFrameLayoutExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -140,6 +182,26 @@
 			productReference = 6003F5AE195388D20070C39A /* NKFrameLayoutKit_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		63975AFF1F0A1B020091CB72 /* NKFrameLayoutExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63975B0F1F0A1B020091CB72 /* Build configuration list for PBXNativeTarget "NKFrameLayoutExample" */;
+			buildPhases = (
+				81812FCBCEF758E4D8284CE4 /* [CP] Check Pods Manifest.lock */,
+				63975AFC1F0A1B020091CB72 /* Sources */,
+				63975AFD1F0A1B020091CB72 /* Frameworks */,
+				63975AFE1F0A1B020091CB72 /* Resources */,
+				163783118555DA4051D5D643 /* [CP] Embed Pods Frameworks */,
+				B97D1A234910EFE8C4116F89 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NKFrameLayoutExample;
+			productName = NKFrameLayoutExample;
+			productReference = 63975B001F0A1B020091CB72 /* NKFrameLayoutExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -147,11 +209,18 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = NK;
-				LastUpgradeCheck = 0720;
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = kennic;
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
+						DevelopmentTeam = 385YL4KG69;
 						TestTargetID = 6003F589195388D20070C39A;
+					};
+					63975AFF1F0A1B020091CB72 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 385YL4KG69;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -168,6 +237,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				63975AFF1F0A1B020091CB72 /* NKFrameLayoutExample */,
 				6003F5AD195388D20070C39A /* NKFrameLayoutKit_Tests */,
 			);
 		};
@@ -182,9 +252,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63975AFE1F0A1B020091CB72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63975B0D1F0A1B020091CB72 /* LaunchScreen.storyboard in Resources */,
+				63975B0A1F0A1B020091CB72 /* Assets.xcassets in Resources */,
+				63975B081F0A1B020091CB72 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		163783118555DA4051D5D643 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		20A2E7813A527C59A70AE520 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +310,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutKit_Tests/Pods-NKFrameLayoutKit_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		81812FCBCEF758E4D8284CE4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		8E96CAEE69A492EE30F50069 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -230,6 +340,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutKit_Tests/Pods-NKFrameLayoutKit_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B97D1A234910EFE8C4116F89 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -238,6 +363,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63975AFC1F0A1B020091CB72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63975B051F0A1B020091CB72 /* ViewController.swift in Sources */,
+				63975B031F0A1B020091CB72 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +384,22 @@
 				6003F5B9195388D20070C39A /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		63975B061F0A1B020091CB72 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63975B071F0A1B020091CB72 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63975B0C1F0A1B020091CB72 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -268,14 +418,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -308,13 +463,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -323,6 +483,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -332,6 +493,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D146B91B11FC796FE4FA39C /* Pods-NKFrameLayoutKit_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 385YL4KG69;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -355,6 +517,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 26CE7BADFEB42C983806CCCB /* Pods-NKFrameLayoutKit_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 385YL4KG69;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -367,6 +530,60 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NKFrameLayoutKit_Example.app/NKFrameLayoutKit_Example";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		63975B101F0A1B020091CB72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32ED5039943C26C2C93F2DAC /* Pods-NKFrameLayoutExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 385YL4KG69;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = NKFrameLayoutExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kennic.NKFrameLayoutExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		63975B111F0A1B020091CB72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D3546EAD4F6041198B90002 /* Pods-NKFrameLayoutExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 385YL4KG69;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = NKFrameLayoutExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kennic.NKFrameLayoutExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -387,6 +604,15 @@
 			buildConfigurations = (
 				6003F5C3195388D20070C39A /* Debug */,
 				6003F5C4195388D20070C39A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63975B0F1F0A1B020091CB72 /* Build configuration list for PBXNativeTarget "NKFrameLayoutExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63975B101F0A1B020091CB72 /* Debug */,
+				63975B111F0A1B020091CB72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

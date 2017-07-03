@@ -1,5 +1,5 @@
 PODS:
-  - NKFrameLayoutKit (1.0.0)
+  - NKFrameLayoutKit (1.0.1)
 
 DEPENDENCIES:
   - NKFrameLayoutKit (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NKFrameLayoutKit: b2f6fd6f365deb87cd7518fedad5475bbe692fba
+  NKFrameLayoutKit: 3e524dc305079db8bd8153e4065f5cbd754f0f77
 
-PODFILE CHECKSUM: 7168fd5ac0cd7f9e2bedaa1a70f378b49e3a5c59
+PODFILE CHECKSUM: 62a33ec6f6dfed97e76487988b58eed5af2c9edb
 
 COCOAPODS: 1.2.1

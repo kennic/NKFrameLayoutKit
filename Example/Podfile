@@ -4,3 +4,9 @@ target 'NKFrameLayoutKit_Tests' do
   
   
 end
+
+target 'NKFrameLayoutExample' do
+	pod 'NKFrameLayoutKit', :path => '../'
+	
+	
+end

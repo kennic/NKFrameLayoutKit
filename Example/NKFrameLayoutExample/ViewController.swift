@@ -24,7 +24,9 @@ class ViewController: UIViewController {
 		
 		let viewSize = self.view.bounds.size
 		let testViewSize = testView.sizeThatFits(viewSize)
-		testView.frame = CGRect(x: (viewSize.width - testViewSize.width)/2, y: (viewSize.height - testViewSize.height)/2, width: testViewSize.width, height: testViewSize.height) // đưa testView vào giữa màn hình
+		
+		// đưa testView vào giữa màn hình
+		testView.frame = CGRect(x: (viewSize.width - testViewSize.width)/2, y: (viewSize.height - testViewSize.height)/2, width: testViewSize.width, height: testViewSize.height)
 	}
 
 
@@ -37,6 +39,9 @@ Tóm tắt các bước khởi tạo:
 - Khởi tạo NKDoubleFrameLayout với direction mong muốn (ngang hoặc dọc), kèm với 2 view cần layout
 - Thay đổi thông số frameLayout nếu cần
 - Đưa frameLayout vào view chính (addSubview:frameLayout)
+
+Tương tự (sẽ update sau này) là NKTripleFrameLayout dùng để layout 3 view (ví dụ như cấu trúc: [Icon] [Text_Field] [Icon] )
+Hoặc NKGridFrameLayout dùng để layout một mạng lưới không giới hạn các view
 */
 class TestView: UIView {
 	let label1 = UILabel()

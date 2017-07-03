@@ -7,6 +7,9 @@
 
 ## Example
 
+![Grid Example](/../master/example_grid.png?raw=true "NKGridFrameLayout example")
+![Triple Example](/../master/example_triple.jpg?raw=true "NKTripleFrameLayout example")
+
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements

@@ -51,6 +51,11 @@ class TestView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		self.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+		
+		label1.backgroundColor = .yellow
+		label2.backgroundColor = .red
+		
 		label1.font = UIFont(name: "Helvetica", size: 30)
 		label2.font = UIFont(name: "Helvetica", size: 15)
 		

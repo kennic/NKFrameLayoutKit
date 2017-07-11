@@ -292,7 +292,12 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	
 	targetFrame = CGRectIntegral(targetFrame);
 	
-	if (self.targetView.superview==self) {
+	if (self.window == nil) {
+		targetFrame.origin.x = self.frame.origin.x;
+		targetFrame.origin.y = self.frame.origin.y;
+		self.targetView.frame = targetFrame;
+	}
+	else if (self.targetView.superview == self) {
 		self.targetView.frame = targetFrame;
 	}
 	else if (self.targetView.superview) {
@@ -371,6 +376,10 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 #if FRAME_DEBUG
 	[self setNeedsDisplay];
 #endif
+	
+	if (self.superview == nil) {
+		[self layoutIfNeeded];
+	}
 }
 
 - (void) setBounds:(CGRect)rect {
@@ -383,6 +392,10 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 #if FRAME_DEBUG
 	[self setNeedsDisplay];
 #endif
+	
+	if (self.superview == nil) {
+		[self layoutIfNeeded];
+	}
 }
 
 - (void) setFixSize:(CGSize)size {

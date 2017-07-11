@@ -292,16 +292,26 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	
 	targetFrame = CGRectIntegral(targetFrame);
 	
-	if (self.window == nil) {
-		targetFrame.origin.x = self.frame.origin.x;
-		targetFrame.origin.y = self.frame.origin.y;
-		self.targetView.frame = targetFrame;
-	}
-	else if (self.targetView.superview == self) {
+	if (self.targetView.superview == self) {
 		self.targetView.frame = targetFrame;
 	}
 	else if (self.targetView.superview) {
-		self.targetView.frame = [self convertRect:targetFrame toView:self.targetView.superview];
+		if (self.window == nil) {
+			targetFrame.origin.x = self.frame.origin.x;
+			targetFrame.origin.y = self.frame.origin.y;
+			
+			UIView *superView = self.superview;
+			while (superView != nil && [superView isKindOfClass:[NKFrameLayout class]]) {
+				targetFrame.origin.x += superView.frame.origin.x;
+				targetFrame.origin.y += superView.frame.origin.y;
+				superView = superView.superview;
+			}
+			
+			self.targetView.frame = targetFrame;
+		}
+		else {
+			self.targetView.frame = [self convertRect:targetFrame toView:self.targetView.superview];
+		}
 	}
 }
 

@@ -9,7 +9,6 @@
 #import "NKGridFrameLayout.h"
 
 @implementation NKGridFrameLayout
-@synthesize numberOfFrames, intrinsicSizeEnabled;
 
 
 #pragma mark - Initialization

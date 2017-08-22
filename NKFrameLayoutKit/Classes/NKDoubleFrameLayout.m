@@ -9,11 +9,7 @@
 #import "NKDoubleFrameLayout.h"
 
 @implementation NKDoubleFrameLayout
-@synthesize layoutDirection, splitPercent, intrinsicSizeEnabled;
 @synthesize frameLayout1, frameLayout2;
-@synthesize leftFrameLayout, rightFrameLayout;
-@synthesize topFrameLayout, bottomFrameLayout;
-
 
 #pragma mark - Initialization
 
@@ -43,7 +39,7 @@
 
 - (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
 	if ((self = [self init])) {
-		self.layoutDirection = direction;
+		_layoutDirection = direction;
 	}
 	
 	return self;
@@ -81,12 +77,12 @@
 #pragma mark -
 
 - (void) setupFrameLayouts {
-	self.intrinsicSizeEnabled		= NO;
-	self.alwaysFitToIntrinsicSize	= NO;
-	self.splitPercent				= 0.5;
-	self.spacing					= 0.0;
-	self.layoutDirection			= NKFrameLayoutDirectionAuto;
-	self.layoutAlignment			= NKFrameLayoutAlignmentLeft; // this is equal to NKFrameLayoutAlignmentTop in Vertical mode
+	self.intrinsicSizeEnabled	= NO;
+	_alwaysFitToIntrinsicSize	= NO;
+	_splitPercent				= 0.5;
+	_spacing					= 0.0;
+	_layoutDirection			= NKFrameLayoutDirectionAuto;
+	_layoutAlignment			= NKFrameLayoutAlignmentLeft; // this is equal to NKFrameLayoutAlignmentTop in Vertical mode
 	
 	if (!frameLayout1) {
 		frameLayout1 = [[NKFrameLayout alloc] init];
@@ -110,41 +106,38 @@
 		result = self.minSize;
 	}
 	else {
-		NKFrameLayout *_frameLayout1 = self.frameLayout1;
-		NKFrameLayout *_frameLayout2 = self.frameLayout2;
-		
 		CGRect containerFrame = CGRectMake(0, 0, size.width, size.height);
 		containerFrame = UIEdgeInsetsInsetRect(containerFrame, self.edgeInsets);
 		
 		CGSize frame1ContentSize, frame2ContentSize;
 		CGFloat space;
-		NKFrameLayoutDirection direction = self.layoutDirection;
+		NKFrameLayoutDirection direction = _layoutDirection;
 		if (direction==NKFrameLayoutDirectionAuto) direction = size.width<size.height ? NKFrameLayoutDirectionVertical : NKFrameLayoutDirectionHorizontal;
 		
 		if (direction==NKFrameLayoutDirectionHorizontal) {
-			switch (self.layoutAlignment) {
+			switch (_layoutAlignment) {
 				case NKFrameLayoutAlignmentLeft:
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:containerFrame.size];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:containerFrame.size];
 					
-					space = (frame1ContentSize.width>0 ? self.spacing : 0);
+					space = (frame1ContentSize.width>0 ? _spacing : 0);
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:frame2ContentSize];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					break;
 					
 				case NKFrameLayoutAlignmentRight:
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:containerFrame.size];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:containerFrame.size];
 					
-					space = (frame2ContentSize.width>0 ? self.spacing : 0);
+					space = (frame2ContentSize.width>0 ? _spacing : 0);
 					
 					frame1ContentSize	= CGSizeMake(containerFrame.size.width - frame2ContentSize.width - space, containerFrame.size.height);
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:frame1ContentSize];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					break;
 					
 				case NKFrameLayoutAlignmentSplit:
 				{
-					CGFloat splitValue = self.splitPercent;
-					CGFloat spaceValue = self.spacing;
+					CGFloat splitValue = _splitPercent;
+					CGFloat spaceValue = _spacing;
 					
 					if (self.frameLayout1.hidden || self.frameLayout1.targetView.hidden || !self.frameLayout1.targetView) {
 						splitValue = 0.0;
@@ -157,27 +150,27 @@
 					}
 					
 					frame1ContentSize	= CGSizeMake((containerFrame.size.width - spaceValue) * splitValue, containerFrame.size.height);
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:frame1ContentSize];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					
 					space = (frame1ContentSize.width>0 ? spaceValue : 0);
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:frame2ContentSize];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					break;
 				}
 					
 				case NKFrameLayoutAlignmentCenter:
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:containerFrame.size];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:containerFrame.size];
 					
-					space = (frame1ContentSize.width>0 ? self.spacing : 0);
+					space = (frame1ContentSize.width>0 ? _spacing : 0);
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:frame2ContentSize];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					break;
 			}
 			
 			if (self.intrinsicSizeEnabled) {
-				space = (frame1ContentSize.width>0 && frame2ContentSize.width>0 ? self.spacing : 0);
+				space = (frame1ContentSize.width>0 && frame2ContentSize.width>0 ? _spacing : 0);
 				result.width = roundf(frame1ContentSize.width + frame2ContentSize.width + space);
 			}
 			else {
@@ -187,27 +180,27 @@
 			result.height = MAX(frame1ContentSize.height, frame2ContentSize.height);
 		}
 		else if (direction==NKFrameLayoutDirectionVertical) {
-			switch (self.layoutAlignment) {
+			switch (_layoutAlignment) {
 				case NKFrameLayoutAlignmentTop:
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:containerFrame.size];
-					space = (frame1ContentSize.height>0 ? self.spacing : 0);
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:containerFrame.size];
+					space = (frame1ContentSize.height>0 ? _spacing : 0);
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame1ContentSize.height - space);
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:frame2ContentSize];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					break;
 					
 				case NKFrameLayoutAlignmentBottom:
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:containerFrame.size];
-					space = (frame2ContentSize.height>0 ? self.spacing : 0);
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:containerFrame.size];
+					space = (frame2ContentSize.height>0 ? _spacing : 0);
 					
 					frame1ContentSize	= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame2ContentSize.height - space);
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:frame1ContentSize];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					break;
 					
 				case NKFrameLayoutAlignmentSplit:
 				{
-					CGFloat splitValue = self.splitPercent;
-					CGFloat spaceValue = self.spacing;
+					CGFloat splitValue = _splitPercent;
+					CGFloat spaceValue = _spacing;
 					
 					if (self.frameLayout1.hidden || self.frameLayout1.targetView.hidden || !self.frameLayout1.targetView) {
 						splitValue = 0.0;
@@ -220,23 +213,23 @@
 					}
 					
 					frame1ContentSize	= CGSizeMake(containerFrame.size.width, (containerFrame.size.height - spaceValue) * splitValue);
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:frame1ContentSize];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					
 					space = (frame1ContentSize.height>0 ? spaceValue : 0);
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame1ContentSize.height - space);
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:frame2ContentSize];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					break;
 				}
 					
 				case NKFrameLayoutAlignmentCenter:
-					frame1ContentSize	= [_frameLayout1 sizeThatFits:containerFrame.size];
-					frame2ContentSize	= [_frameLayout2 sizeThatFits:containerFrame.size];
+					frame1ContentSize	= [self.frameLayout1 sizeThatFits:containerFrame.size];
+					frame2ContentSize	= [self.frameLayout2 sizeThatFits:containerFrame.size];
 					break;
 			}
 			
 			result.width = self.intrinsicSizeEnabled ? MAX(frame1ContentSize.width, frame2ContentSize.width) : size.width;
-			space = (frame1ContentSize.height>0 && frame2ContentSize.height>0 ? self.spacing : 0);
+			space = (frame1ContentSize.height>0 && frame2ContentSize.height>0 ? _spacing : 0);
 			result.height = roundf(frame1ContentSize.height + frame2ContentSize.height + space);
 		}
 		else {
@@ -272,24 +265,21 @@
 	CGRect targetFrame2 = containerFrame;
 	CGFloat space;
 	
-	NKFrameLayout *_frameLayout1 = self.frameLayout1;
-	NKFrameLayout *_frameLayout2 = self.frameLayout2;
-	
-	NKFrameLayoutDirection direction = self.layoutDirection;
+	NKFrameLayoutDirection direction = _layoutDirection;
 	if (direction==NKFrameLayoutDirectionAuto) direction = self.bounds.size.width<self.bounds.size.height ? NKFrameLayoutDirectionVertical : NKFrameLayoutDirectionHorizontal;
 	
 	if (direction==NKFrameLayoutDirectionHorizontal) {
-		switch (self.layoutAlignment) {
+		switch (_layoutAlignment) {
 			case NKFrameLayoutAlignmentLeft:
-				frame1ContentSize			= [_frameLayout1 sizeThatFits:containerFrame.size];
+				frame1ContentSize			= [self.frameLayout1 sizeThatFits:containerFrame.size];
 				targetFrame1.origin.x		= containerFrame.origin.x;
 				targetFrame1.size.width		= frame1ContentSize.width;
 				
-				space = (frame1ContentSize.width>0 ? self.spacing : 0);
+				space = (frame1ContentSize.width>0 ? _spacing : 0);
 				
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-				if (self.alwaysFitToIntrinsicSize) {
-					frame2ContentSize		 = [_frameLayout2 sizeThatFits:frame2ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame2ContentSize		 = [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					targetFrame2.size.height = frame2ContentSize.height;
 					targetFrame1.size.height = frame1ContentSize.height;
 				}
@@ -299,16 +289,16 @@
 				break;
 				
 			case NKFrameLayoutAlignmentRight:
-				frame2ContentSize			= [_frameLayout2 sizeThatFits:containerFrame.size];
+				frame2ContentSize			= [self.frameLayout2 sizeThatFits:containerFrame.size];
 				targetFrame2.origin.x		= containerFrame.origin.x + (containerFrame.size.width - frame2ContentSize.width);
 				targetFrame2.size.width		= frame2ContentSize.width;
 				
-				space = (frame2ContentSize.width>0 ? self.spacing : 0);
+				space = (frame2ContentSize.width>0 ? _spacing : 0);
 				
 				frame1ContentSize			= CGSizeMake(containerFrame.size.width - frame2ContentSize.width - space, containerFrame.size.height);
 				
-				if (self.alwaysFitToIntrinsicSize) {
-					frame1ContentSize		 = [_frameLayout1 sizeThatFits:frame1ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame1ContentSize		 = [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					targetFrame1.origin.x	 = (targetFrame2.origin.x - frame1ContentSize.width - space);
 					targetFrame1.size.height = frame1ContentSize.height;
 					targetFrame2.size.height = frame2ContentSize.height;
@@ -322,8 +312,8 @@
 				
 			case NKFrameLayoutAlignmentSplit:
 			{
-				CGFloat splitValue = self.splitPercent;
-				CGFloat spaceValue = self.spacing;
+				CGFloat splitValue = _splitPercent;
+				CGFloat spaceValue = _spacing;
 				
 				if (self.frameLayout1.hidden || self.frameLayout1.targetView.hidden || !self.frameLayout1.targetView) {
 					splitValue = 0.0;
@@ -336,15 +326,15 @@
 				}
 				
 				frame1ContentSize			= CGSizeMake((containerFrame.size.width - spaceValue) * splitValue, containerFrame.size.height);
-				if (self.alwaysFitToIntrinsicSize) frame1ContentSize = [self.frameLayout1 sizeThatFits:frame1ContentSize];
+				if (_alwaysFitToIntrinsicSize) frame1ContentSize = [self.frameLayout1 sizeThatFits:frame1ContentSize];
 				targetFrame1.origin.x		= containerFrame.origin.x;
 				targetFrame1.size.width		= frame1ContentSize.width;
 				
 				space = (frame1ContentSize.width>0 ? spaceValue : 0);
 				
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-				if (self.alwaysFitToIntrinsicSize) {
-					frame2ContentSize		 = [_frameLayout2 sizeThatFits:frame2ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame2ContentSize		 = [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					targetFrame2.size.height = frame2ContentSize.height;
 					targetFrame1.size.height = frame1ContentSize.height;
 				}
@@ -355,10 +345,10 @@
 			}
 				
 			case NKFrameLayoutAlignmentCenter:
-				frame1ContentSize			= [_frameLayout1 sizeThatFits:containerFrame.size];
-				space = (frame1ContentSize.width>0 ? self.spacing : 0);
+				frame1ContentSize			= [self.frameLayout1 sizeThatFits:containerFrame.size];
+				space = (frame1ContentSize.width>0 ? _spacing : 0);
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
-				frame2ContentSize			= [_frameLayout2 sizeThatFits:frame2ContentSize];
+				frame2ContentSize			= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 				
 				CGFloat totalWidth			= frame1ContentSize.width + frame2ContentSize.width + space;
 				
@@ -368,7 +358,7 @@
 				targetFrame2.origin.x		= targetFrame1.origin.x + frame1ContentSize.width + space;
 				targetFrame2.size.width		= frame2ContentSize.width;
 				
-				if (self.alwaysFitToIntrinsicSize) {
+				if (_alwaysFitToIntrinsicSize) {
 					targetFrame2.size.height = frame2ContentSize.height;
 					targetFrame1.size.height = frame1ContentSize.height;
 				}
@@ -376,17 +366,17 @@
 		}
 	}
 	else if (direction==NKFrameLayoutDirectionVertical) {
-		switch (self.layoutAlignment) {
+		switch (_layoutAlignment) {
 			case NKFrameLayoutAlignmentTop:
-				frame1ContentSize			= [_frameLayout1 sizeThatFits:containerFrame.size];
+				frame1ContentSize			= [self.frameLayout1 sizeThatFits:containerFrame.size];
 				targetFrame1.origin.y		= containerFrame.origin.y;
 				targetFrame1.size.height	= frame1ContentSize.height;
 				
-				space = (frame1ContentSize.height>0 ? self.spacing : 0);
+				space = (frame1ContentSize.height>0 ? _spacing : 0);
 				
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame1ContentSize.height - space);
-				if (self.alwaysFitToIntrinsicSize) {
-					frame2ContentSize		= [_frameLayout2 sizeThatFits:frame2ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame2ContentSize		= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					targetFrame2.size.width = frame2ContentSize.width;
 					targetFrame1.size.width = frame1ContentSize.width;
 				}
@@ -396,16 +386,16 @@
 				break;
 				
 			case NKFrameLayoutAlignmentBottom:
-				frame2ContentSize			= [_frameLayout2 sizeThatFits:containerFrame.size];
+				frame2ContentSize			= [self.frameLayout2 sizeThatFits:containerFrame.size];
 				targetFrame2.origin.y		= containerFrame.origin.y + (containerFrame.size.height - frame2ContentSize.height);
 				targetFrame2.size.height	= frame2ContentSize.height;
 				
-				space = (frame2ContentSize.height>0 ? self.spacing : 0);
+				space = (frame2ContentSize.height>0 ? _spacing : 0);
 				
 				frame1ContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame2ContentSize.height - space);
 				targetFrame1.origin.y		= containerFrame.origin.y;
-				if (self.alwaysFitToIntrinsicSize) {
-					frame1ContentSize		= [_frameLayout1 sizeThatFits:frame1ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame1ContentSize		= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					targetFrame1.origin.y	+= (containerFrame.size.height - frame2ContentSize.height - space);
 					targetFrame2.size.width = frame2ContentSize.width;
 					targetFrame1.size.width = frame1ContentSize.width;
@@ -416,8 +406,8 @@
 				
 			case NKFrameLayoutAlignmentSplit:
 			{
-				CGFloat splitValue = self.splitPercent;
-				CGFloat spaceValue = self.spacing;
+				CGFloat splitValue = _splitPercent;
+				CGFloat spaceValue = _spacing;
 				
 				if (self.frameLayout1.hidden || self.frameLayout1.targetView.hidden || !self.frameLayout1.targetView) {
 					splitValue = 0.0;
@@ -430,7 +420,7 @@
 				}
 				
 				frame1ContentSize			= CGSizeMake(containerFrame.size.width, (containerFrame.size.height - spaceValue) * splitValue);
-				if (self.alwaysFitToIntrinsicSize) {
+				if (_alwaysFitToIntrinsicSize) {
 					frame1ContentSize		= [self.frameLayout1 sizeThatFits:frame1ContentSize];
 					targetFrame1.size.width = frame1ContentSize.width;
 				}
@@ -441,8 +431,8 @@
 				space = (frame1ContentSize.height>0 ? spaceValue : 0);
 				
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame1ContentSize.height - space);
-				if (self.alwaysFitToIntrinsicSize) {
-					frame2ContentSize		= [_frameLayout2 sizeThatFits:frame2ContentSize];
+				if (_alwaysFitToIntrinsicSize) {
+					frame2ContentSize		= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 					targetFrame2.size.width = frame2ContentSize.width;
 					
 				}
@@ -453,10 +443,10 @@
 			}
 				
 			case NKFrameLayoutAlignmentCenter:
-				frame1ContentSize			= [_frameLayout1 sizeThatFits:containerFrame.size];
-				space = (frame1ContentSize.height>0 ? self.spacing : 0);
+				frame1ContentSize			= [self.frameLayout1 sizeThatFits:containerFrame.size];
+				space = (frame1ContentSize.height>0 ? _spacing : 0);
 				frame2ContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - frame1ContentSize.height - space);
-				frame2ContentSize			= [_frameLayout2 sizeThatFits:frame2ContentSize];
+				frame2ContentSize			= [self.frameLayout2 sizeThatFits:frame2ContentSize];
 				
 				CGFloat totalHeight			= frame1ContentSize.height + frame2ContentSize.height + space;
 				
@@ -466,7 +456,7 @@
 				targetFrame2.origin.y		= targetFrame1.origin.y + frame1ContentSize.height + space;
 				targetFrame2.size.height	= frame2ContentSize.height;
 				
-				if (self.alwaysFitToIntrinsicSize) {
+				if (_alwaysFitToIntrinsicSize) {
 					targetFrame2.size.width = frame2ContentSize.width;
 					targetFrame1.size.width = frame1ContentSize.width;
 				}

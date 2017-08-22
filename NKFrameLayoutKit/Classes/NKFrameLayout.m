@@ -22,10 +22,6 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	NSMutableDictionary *sizeCacheData;
 }
 
-@synthesize targetView, targetFrame;
-@synthesize edgeInsets, minSize, maxSize, ignoreHiddenView, debugColor;
-@synthesize contentVerticalAlignment, contentHorizontalAlignment;
-
 
 #pragma mark - Class Methods
 
@@ -63,7 +59,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 
 - (instancetype) initWithTargetView:(UIView*)view {
 	if ((self = [self init])) {
-		self.targetView = view;
+		_targetView = view;
 	}
 	
 	return self;
@@ -72,34 +68,34 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 #pragma mark -
 
 - (void) setupDefaultValues {
-	self.backgroundColor			= [UIColor clearColor];
+	self.backgroundColor				= [UIColor clearColor];
 	
 #if DEBUG
 #if FRAME_DEBUG
-	self.debugColor					= [self randomColor];
+	_debugColor							= [self randomColor];
 #endif
 #endif
 	
-	sizeCacheData					= [NSMutableDictionary new];
+	sizeCacheData						= [NSMutableDictionary new];
 	
-	self.tag						= -1;
-	self.userInteractionEnabled		= NO;
-	self.ignoreHiddenView			= YES;
-	self.shouldCacheSize			= NO;
-	self.edgeInsets					= UIEdgeInsetsZero;
-	self.minSize					= CGSizeZero;
-	self.maxSize					= CGSizeZero;
-	self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-	self.contentVerticalAlignment	= UIControlContentVerticalAlignmentFill;
-	self.allowContentHorizontalGrowing		= NO;
-	self.allowContentHorizontalShrinking	= NO;
-	self.allowContentVerticalGrowing		= NO;
-	self.allowContentVerticalShrinking		= NO;
+	self.tag							= -1;
+	self.userInteractionEnabled			= NO;
+	_ignoreHiddenView					= YES;
+	_shouldCacheSize					= NO;
+	_edgeInsets							= UIEdgeInsetsZero;
+	_minSize							= CGSizeZero;
+	_maxSize							= CGSizeZero;
+	_contentHorizontalAlignment			 = UIControlContentHorizontalAlignmentFill;
+	_contentVerticalAlignment			= UIControlContentVerticalAlignmentFill;
+	_allowContentHorizontalGrowing		= NO;
+	_allowContentHorizontalShrinking	= NO;
+	_allowContentVerticalGrowing		= NO;
+	_allowContentVerticalShrinking		= NO;
 	
 #if FRAME_DEBUG
-	self.showFrameDebug						= NO;
+	_showFrameDebug						= NO;
 #else
-	self.showFrameDebug						= NO;
+	_showFrameDebug						= NO;
 #endif
 }
 
@@ -107,26 +103,26 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 #pragma mark - Public Methods
 
 - (CGSize) sizeThatFits:(CGSize)size {
-	BOOL isHiddenView = !self.targetView || (self.targetView && self.targetView.hidden && self.ignoreHiddenView) || self.hidden;
+	BOOL isHiddenView = !_targetView || (_targetView && _targetView.hidden && _ignoreHiddenView) || self.hidden;
 	if (isHiddenView) return CGSizeZero;
 	
 	CGSize result;
 	
-	NSInteger verticalEdgeValues	= edgeInsets.left + edgeInsets.right;
-	NSInteger horizontalEdgeValues	= edgeInsets.top  + edgeInsets.bottom;
+	NSInteger verticalEdgeValues	= _edgeInsets.left + _edgeInsets.right;
+	NSInteger horizontalEdgeValues	= _edgeInsets.top  + _edgeInsets.bottom;
 	
-	if (CGSizeEqualToSize(self.minSize, self.maxSize) && self.minSize.width>0 && self.minSize.height>0) {
-		result = self.minSize;
+	if (CGSizeEqualToSize(_minSize, _maxSize) && _minSize.width>0 && _minSize.height>0) {
+		result = _minSize;
 	}
 	else {
 		CGSize contentSize = CGSizeMake(MAX(size.width - verticalEdgeValues, 0), MAX(size.height - horizontalEdgeValues, 0));
 		
 		result = [self targetSizeThatFits:contentSize];
 		
-		result.width	= MAX(self.minSize.width,  result.width);
-		result.height	= MAX(self.minSize.height, result.height);
-		if (self.maxSize.width>0  && self.maxSize.width>=self.minSize.width)   result.width  = MIN(self.maxSize.width,  result.width);
-		if (self.maxSize.height>0 && self.maxSize.height>=self.minSize.height) result.height = MIN(self.maxSize.height, result.height);
+		result.width	= MAX(_minSize.width,  result.width);
+		result.height	= MAX(_minSize.height, result.height);
+		if (_maxSize.width>0  && _maxSize.width>=_minSize.width)   result.width  = MIN(_maxSize.width,  result.width);
+		if (_maxSize.height>0 && _maxSize.height>=_minSize.height) result.height = MIN(_maxSize.height, result.height);
 	}
 	
 	if (result.width>0)  result.width  += verticalEdgeValues;
@@ -143,13 +139,13 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 - (CGSize) targetSizeThatFits:(CGSize)size {
 	CGSize result;
 	
-	if (self.shouldCacheSize) {
-		if (self.targetView) {
-			NSString *key = [[NSString stringWithFormat:@"%i", (int)[self.targetView hash]] stringByAppendingString:NSStringFromCGSize(size)];
+	if (_shouldCacheSize) {
+		if (_targetView) {
+			NSString *key = [[NSString stringWithFormat:@"%i", (int)[_targetView hash]] stringByAppendingString:NSStringFromCGSize(size)];
 			NSString *value = sizeCacheData[key];
 			
 			if (!value) {
-				result = [self.targetView sizeThatFits:size];
+				result = [_targetView sizeThatFits:size];
 				value = NSStringFromCGSize(result);
 				[sizeCacheData setObject:value forKey:key];
 			}
@@ -162,155 +158,161 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		}
 	}
 	else {
-		result = [self.targetView sizeThatFits:size];
+		result = [_targetView sizeThatFits:size];
 	}
 	
 	return result;
 }
 
 - (void) layoutSubviews {
-	if (self.hidden || self.targetView.hidden) return;
+	if (self.hidden || _targetView.hidden) return;
 	if (self.bounds.size.width<1 || self.bounds.size.height<1) return;
 	
-	CGRect containerFrame	= UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
-	CGSize contentSize		= self.contentHorizontalAlignment!=UIControlContentHorizontalAlignmentFill || self.contentVerticalAlignment!=UIControlContentVerticalAlignmentFill ? [self targetSizeThatFits:containerFrame.size] : CGSizeZero;
+	CGRect containerFrame	= UIEdgeInsetsInsetRect(self.bounds, _edgeInsets);
+	CGSize contentSize		= _contentHorizontalAlignment!=UIControlContentHorizontalAlignmentFill || _contentVerticalAlignment!=UIControlContentVerticalAlignmentFill ? [self targetSizeThatFits:containerFrame.size] : CGSizeZero;
 	
-	switch (self.contentHorizontalAlignment) {
+	switch (_contentHorizontalAlignment) {
 		case UIControlContentHorizontalAlignmentLeft:
 			if (_allowContentHorizontalGrowing) {
-				targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
 			}
 			else if (_allowContentHorizontalShrinking) {
-				targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
 			}
 			else {
-				targetFrame.size.width	= contentSize.width;
+				_targetFrame.size.width	= contentSize.width;
 			}
 			
-			targetFrame.origin.x = containerFrame.origin.x;
+			_targetFrame.origin.x = containerFrame.origin.x;
 			break;
 			
 		case UIControlContentHorizontalAlignmentRight:
 			if (_allowContentHorizontalGrowing) {
-				targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
 			}
 			else if (_allowContentHorizontalShrinking) {
-				targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
 			}
 			else {
-				targetFrame.size.width	= contentSize.width;
+				_targetFrame.size.width	= contentSize.width;
 			}
 			
-			targetFrame.origin.x = containerFrame.origin.x + (containerFrame.size.width - contentSize.width);
+			_targetFrame.origin.x = containerFrame.origin.x + (containerFrame.size.width - contentSize.width);
 			break;
 			
 		case UIControlContentHorizontalAlignmentCenter:
 			if (_allowContentHorizontalGrowing) {
-				targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
 			}
 			else if (_allowContentHorizontalShrinking) {
-				targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+				_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
 			}
 			else {
-				targetFrame.size.width	= contentSize.width;
+				_targetFrame.size.width	= contentSize.width;
 			}
 			
-			targetFrame.origin.x = containerFrame.origin.x + roundf(containerFrame.size.width/2 - contentSize.width/2);
+			_targetFrame.origin.x = containerFrame.origin.x + roundf(containerFrame.size.width/2 - contentSize.width/2);
 			break;
 			
 		case UIControlContentHorizontalAlignmentFill:
-			targetFrame.origin.x	= containerFrame.origin.x;
-			targetFrame.size.width	= containerFrame.size.width;
+			_targetFrame.origin.x	= containerFrame.origin.x;
+			_targetFrame.size.width	= containerFrame.size.width;
 			break;
 			
 		case UIControlContentHorizontalAlignmentFit:
-			targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
-			targetFrame.origin.x	= containerFrame.origin.x + roundf(containerFrame.size.width/2 - targetFrame.size.width/2);
+			_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+			_targetFrame.origin.x	= containerFrame.origin.x + roundf(containerFrame.size.width/2 - _targetFrame.size.width/2);
+			break;
+			
+		default:
 			break;
 	}
 	
-	switch (self.contentVerticalAlignment) {
+	switch (_contentVerticalAlignment) {
 		case UIControlContentVerticalAlignmentTop:
 			if (_allowContentVerticalGrowing) {
-				targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
 			}
 			else if (_allowContentVerticalShrinking) {
-				targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height	= contentSize.height;
 			}
 			
-			targetFrame.origin.y = containerFrame.origin.y;
+			_targetFrame.origin.y = containerFrame.origin.y;
 			break;
 			
 		case UIControlContentVerticalAlignmentBottom:
 			if (_allowContentVerticalGrowing) {
-				targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
 			}
 			else if (_allowContentVerticalShrinking) {
-				targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height	= contentSize.height;
 			}
 			
-			targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height);
+			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height);
 			break;
 			
 		case UIControlContentVerticalAlignmentCenter:
 			if (_allowContentVerticalGrowing) {
-				targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
 			}
 			else if (_allowContentVerticalShrinking) {
-				targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height	= contentSize.height;
 			}
-			targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height)/2;
+			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height)/2;
 			break;
 			
 		case UIControlContentVerticalAlignmentFill:
-			targetFrame.origin.y	= containerFrame.origin.y;
-			targetFrame.size.height = containerFrame.size.height;
+			_targetFrame.origin.y	= containerFrame.origin.y;
+			_targetFrame.size.height = containerFrame.size.height;
 			break;
 			
 		case UIControlContentVerticalAlignmentFit:
 			if (_allowContentVerticalGrowing) {
-				targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
 			}
 			else if (_allowContentVerticalShrinking) {
-				targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
+				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height	= contentSize.height;
 			}
-			targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - targetFrame.size.height)/2;
+			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - _targetFrame.size.height)/2;
+			break;
+			
+		default:
 			break;
 	}
 	
-	targetFrame = CGRectIntegral(targetFrame);
+	_targetFrame = CGRectIntegral(_targetFrame);
 	
-	if (self.targetView.superview == self) {
-		self.targetView.frame = targetFrame;
+	if (_targetView.superview == self) {
+		_targetView.frame = _targetFrame;
 	}
-	else if (self.targetView.superview) {
+	else if (_targetView.superview) {
 		if (self.window == nil) {
-			targetFrame.origin.x = self.frame.origin.x;
-			targetFrame.origin.y = self.frame.origin.y;
+			_targetFrame.origin.x = self.frame.origin.x;
+			_targetFrame.origin.y = self.frame.origin.y;
 			
 			UIView *superView = self.superview;
 			while (superView != nil && [superView isKindOfClass:[NKFrameLayout class]]) {
-				targetFrame.origin.x += superView.frame.origin.x;
-				targetFrame.origin.y += superView.frame.origin.y;
+				_targetFrame.origin.x += superView.frame.origin.x;
+				_targetFrame.origin.y += superView.frame.origin.y;
 				superView = superView.superview;
 			}
 			
-			self.targetView.frame = targetFrame;
+			_targetView.frame = _targetFrame;
 		}
 		else {
-			self.targetView.frame = [self convertRect:targetFrame toView:self.targetView.superview];
+			_targetView.frame = [self convertRect:_targetFrame toView:_targetView.superview];
 		}
 	}
 }
@@ -327,26 +329,26 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	
 	CGRect debugBound = self.bounds;
 #if INSET_FRAME_DEBUG
-	debugBound = UIEdgeInsetsInsetRect(debugBound, self.edgeInsets);
+	debugBound = UIEdgeInsetsInsetRect(debugBound, _edgeInsets);
 #endif
 	
 	BOOL enableDrawing = YES;
 #if ONLY_DRAW_FRAME_WITH_VISIBLE_CONTENT
-	enableDrawing = self.targetView!=nil && !self.targetView.hidden;
+	enableDrawing = _targetView!=nil && !_targetView.hidden;
 #else
-	enableDrawing = YES;//self.tag>-1;
+	enableDrawing = YES;//_tag>-1;
 #endif
 	
 	if (enableDrawing) {
 		CGContextSaveGState(context);
 		CGFloat dashes[] = {4.0, 2.0};
-		CGContextSetStrokeColorWithColor(context, [self.debugColor CGColor]);
+		CGContextSetStrokeColorWithColor(context, [_debugColor CGColor]);
 		CGContextSetLineDash(context, 0, dashes, 2);
 		CGContextStrokeRect(context, debugBound);
 		CGContextRestoreGState(context);
 		
 		if (self.tag>-1) {
-			CGContextSetFillColorWithColor(context, [self.debugColor CGColor]);
+			CGContextSetFillColorWithColor(context, [_debugColor CGColor]);
 			NSString *tagText = [NSString stringWithFormat:@"%i", (int)self.tag];
 			UIFont *font = [UIFont fontWithName:@"Arial" size:12];
 			NSDictionary *attributes = @{NSFontAttributeName:font};
@@ -410,7 +412,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 
 - (void) setFixSize:(CGSize)size {
 	_fixSize = size;
-	self.minSize = self.maxSize = size;
+	_minSize = _maxSize = size;
 }
 
 - (void) setSettingBlock:(void (^)(NKFrameLayout *))settingBlock {
@@ -423,35 +425,35 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		NSString *hValue = [[value substringFromIndex:1] lowercaseString]; // l=left c=center r=right f=fill t=fit
 		
 		if ([vValue isEqualToString:@"t"]) {
-			self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+			_contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
 		}
 		else if ([vValue isEqualToString:@"c"]) {
-			self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+			_contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		}
 		else if ([vValue isEqualToString:@"b"]) {
-			self.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+			_contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
 		}
 		else if ([vValue isEqualToString:@"f"]) {
-			self.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+			_contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 		}
 		else if ([vValue isEqualToString:@"t"]) {
-			self.contentVerticalAlignment = UIControlContentVerticalAlignmentFit;
+			_contentVerticalAlignment = UIControlContentVerticalAlignmentFit;
 		}
 		
 		if ([hValue isEqualToString:@"l"]) {
-			self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 		}
 		else if ([hValue isEqualToString:@"c"]) {
-			self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 		}
 		else if ([hValue isEqualToString:@"r"]) {
-			self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
 		}
 		else if ([hValue isEqualToString:@"f"]) {
-			self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
 		}
 		else if ([hValue isEqualToString:@"t"]) {
-			self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFit;
+			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentFit;
 		}
 	}
 }
@@ -468,8 +470,8 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 #pragma mark -
 
 - (void) dealloc {
-	self.debugColor = nil;
-	self.targetView = nil;
+	_debugColor = nil;
+	_targetView = nil;
 }
 
 @end

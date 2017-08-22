@@ -55,9 +55,9 @@ Double FrameLayout class that handles two views' frame
 }
 
 /** First frame layout, equal to leftFrameLayout or topFrameLayout */
-@property (nonatomic, retain) NKFrameLayout				*frameLayout1;	// is leftFrameLayout or topFrameLayout based on direction
+@property (nonatomic, strong) NKFrameLayout				*frameLayout1;	// is leftFrameLayout or topFrameLayout based on direction
 /** Second frame layout, equal to rightFrameLayout or bottomFrameLayout */
-@property (nonatomic, retain) NKFrameLayout				*frameLayout2;	// is rightFrameLayout or bottomFrameLayout based on direction
+@property (nonatomic, strong) NKFrameLayout				*frameLayout2;	// is rightFrameLayout or bottomFrameLayout based on direction
 /** Layout Directional */
 @property (nonatomic, assign) NKFrameLayoutDirection	layoutDirection;
 /** Layout Alignment */
@@ -66,8 +66,8 @@ Double FrameLayout class that handles two views' frame
 @property (nonatomic, assign) CGFloat					splitPercent;
 /** Space between two frames, only used when primary-aligned frame is non-zero */
 @property (nonatomic, assign) CGFloat					spacing;
-/** If YES, size returned from [sizeThatFits:size] will return its intrinsicSize (real width). Default is NO */
-@property (nonatomic, assign) BOOL						intrinsicSizeEnabled;
+///** If YES, size returned from [sizeThatFits:size] will return its intrinsicSize (real width). Default is NO */
+//@property (nonatomic, assign) BOOL						intrinsicSizeEnabled;
 /** If YES, each frame layout will fit to its intrinsicSize. Default is NO */
 @property (nonatomic, assign) BOOL						alwaysFitToIntrinsicSize;
 

@@ -20,9 +20,9 @@ Single FrameLayout class that handles one view's frame
 /** Returns current frame of targetView */
 @property (nonatomic, readonly) CGRect		targetFrame;
 /** Current view assigned to this FrameLayout */
-@property (nonatomic, retain) UIView		*targetView;
+@property (nonatomic, strong) UIView		*targetView;
 
-@property (nonatomic, retain) UIColor		*debugColor;
+@property (nonatomic, strong) UIColor		*debugColor;
 /** Extend edge insets, will be added only if content size is non-zero */
 @property (nonatomic, assign) UIEdgeInsets	edgeInsets;
 /** Default is CGSizeZero */

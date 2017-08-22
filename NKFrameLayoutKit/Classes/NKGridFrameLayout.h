@@ -20,8 +20,8 @@ Grid FrameLayout class that handles multi views' frame
 @property (nonatomic, assign) NKFrameLayoutAlignment	layoutAlignment;
 /** Space between frames, will be applied only when primary-aligned frame is non-zero */
 @property (nonatomic, assign) CGFloat					spacing;
-/** Set to YES to returns total contents width, NO to use specified width in sizeThatFits. Default is YES. */
-@property (nonatomic, assign) BOOL						intrinsicSizeEnabled;
+///** Set to YES to returns total contents width, NO to use specified width in sizeThatFits. Default is YES. */
+//@property (nonatomic, assign) BOOL						intrinsicSizeEnabled;
 /** Set to YES to auto remove targetView from its superview when removing its frameLayout. Default is NO. */
 @property (nonatomic, assign) BOOL						autoRemoveTargetView;
 /** YES to round cell size using roundf(), default is NO */

@@ -1,6 +1,6 @@
 //
 //  NKFrameLayoutKit.h
-//  Pateco
+//  NKFrameLayoutKit
 //
 //  Created by Nam Kennic on 11/16/15.
 //  Copyright © 2015 Nam Kennic. All rights reserved.

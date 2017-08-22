@@ -1,6 +1,6 @@
 //
 //  NKGridFrameLayout.m
-//  NKFrameLayout
+//  NKFrameLayoutKit
 //
 //  Created by Nam Kennic on 3/8/14.
 //  Copyright (c) 2014 Nam Kennic. All rights reserved.

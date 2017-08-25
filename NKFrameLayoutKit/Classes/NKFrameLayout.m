@@ -421,8 +421,8 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 
 - (void) setContentAlignment:(NSString *)value {
 	if ([value length]==2) {
-		NSString *vValue = [[value substringToIndex:1]	 lowercaseString]; // t=top c=center b=bottom f=fill t=fit
-		NSString *hValue = [[value substringFromIndex:1] lowercaseString]; // l=left c=center r=right f=fill t=fit
+		NSString *vValue = [[value substringToIndex:1]	 lowercaseString]; // t=top c=center b=bottom f=fill z=fit
+		NSString *hValue = [[value substringFromIndex:1] lowercaseString]; // l=left c=center r=right f=fill z=fit
 		
 		if ([vValue isEqualToString:@"t"]) {
 			_contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
@@ -436,7 +436,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		else if ([vValue isEqualToString:@"f"]) {
 			_contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 		}
-		else if ([vValue isEqualToString:@"t"]) {
+		else if ([vValue isEqualToString:@"z"]) {
 			_contentVerticalAlignment = UIControlContentVerticalAlignmentFit;
 		}
 		
@@ -452,7 +452,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		else if ([hValue isEqualToString:@"f"]) {
 			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
 		}
-		else if ([hValue isEqualToString:@"t"]) {
+		else if ([hValue isEqualToString:@"z"]) {
 			_contentHorizontalAlignment = UIControlContentHorizontalAlignmentFit;
 		}
 	}

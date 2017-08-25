@@ -42,7 +42,7 @@ Single FrameLayout class that handles one view's frame
 /** Default is UIControlContentHorizontalAlignmentFill */
 @property (nonatomic, assign) UIControlContentHorizontalAlignment	contentHorizontalAlignment;
 /** Fast way to set content alignment. Example: .contentAlignment = @"tl"; // (top-left)*/
-@property (nonatomic, assign) NSString		*contentAlignment;
+@property (nonatomic, assign) NSString		*contentAlignment; // t=top c=center b=bottom f=fill z=fit / l=left c=center r=right f=fill z=fit
 
 /** Show frame debug */
 @property (nonatomic, assign) BOOL showFrameDebug;

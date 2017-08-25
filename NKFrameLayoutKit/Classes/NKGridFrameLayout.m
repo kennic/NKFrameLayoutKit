@@ -436,7 +436,7 @@
 				for (NKFrameLayout *frameLayout in _frameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
-					frameContentSize			= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+					frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
 					if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
 						CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
 						if (!frameLayout.intrinsicSizeEnabled && (frameLayout == lastFrameLayout)) {
@@ -464,17 +464,17 @@
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
-					frameContentSize			= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
-					if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
-						frameContentSize		= [frameLayout sizeThatFits:frameContentSize];
-					}
-					
 					if (!frameLayout.intrinsicSizeEnabled && (frameLayout==lastFrameLayout)) {
-						targetFrame.origin.x	= 0;
-						targetFrame.size.width	= frameContentSize.width;
+						targetFrame.origin.x	= self.edgeInsets.left;
+						targetFrame.size.width	= containerFrame.size.width - usedSpace;
 					}
 					else {
-						targetFrame.origin.x	= MAX(containerFrame.size.width - frameContentSize.width - self.edgeInsets.right - usedSpace, 0);
+						frameContentSize		= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+						if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
+							frameContentSize	= [frameLayout sizeThatFits:frameContentSize];
+						}
+						
+						targetFrame.origin.x	= MAX(self.bounds.size.width - frameContentSize.width - self.edgeInsets.right - usedSpace, 0);
 						targetFrame.size.width	= frameContentSize.width;
 					}
 					
@@ -562,18 +562,17 @@
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
-					frameContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
-					if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
-						frameContentSize		= [frameLayout sizeThatFits:frameContentSize];
-					}
-					
-					
 					if (!frameLayout.intrinsicSizeEnabled && (frameLayout==lastFrameLayout)) {
-						targetFrame.origin.y	= 0;
-						targetFrame.size.height	= frameContentSize.height;
+						targetFrame.origin.y	= self.edgeInsets.top;
+						targetFrame.size.height	= containerFrame.size.height - usedSpace;
 					}
 					else {
-						targetFrame.origin.y	= MAX(containerFrame.size.height - frameContentSize.height - self.edgeInsets.bottom - usedSpace, 0);
+						frameContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+						if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
+							frameContentSize		= [frameLayout sizeThatFits:frameContentSize];
+						}
+						
+						targetFrame.origin.y	= MAX(self.bounds.size.height - frameContentSize.height - self.edgeInsets.bottom - usedSpace, 0);
 						targetFrame.size.height	= frameContentSize.height;
 					}
 					

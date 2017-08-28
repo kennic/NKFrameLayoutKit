@@ -396,7 +396,7 @@
 				targetFrame1.origin.y		= containerFrame.origin.y;
 				if (_alwaysFitToIntrinsicSize) {
 					frame1ContentSize		= [self.frameLayout1 sizeThatFits:frame1ContentSize];
-					targetFrame1.origin.y	+= (containerFrame.size.height - frame2ContentSize.height - space);
+                    targetFrame1.origin.y	+= (containerFrame.size.height - frame2ContentSize.height - space - frame1ContentSize.height);
 					targetFrame2.size.width = frame2ContentSize.width;
 					targetFrame1.size.width = frame1ContentSize.width;
 				}

@@ -18,6 +18,7 @@
 		63975B081F0A1B020091CB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63975B061F0A1B020091CB72 /* Main.storyboard */; };
 		63975B0A1F0A1B020091CB72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63975B091F0A1B020091CB72 /* Assets.xcassets */; };
 		63975B0D1F0A1B020091CB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */; };
+		8027E4971F541FDE006A2896 /* TripleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8027E4961F541FDE006A2896 /* TripleViewController.swift */; };
 		E2E299137C17DFD042D9698A /* Pods_NKFrameLayoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56265F0D9ABE199E0F6BF6B2 /* Pods_NKFrameLayoutExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		63975B0C1F0A1B020091CB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63975B0E1F0A1B020091CB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		776E087EF31077B9538C9D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		8027E4961F541FDE006A2896 /* TripleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripleViewController.swift; sourceTree = "<group>"; };
 		A743AC0FE1CBCE8BF4281AF5 /* Pods_NKFrameLayoutKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NKFrameLayoutKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 				63975B091F0A1B020091CB72 /* Assets.xcassets */,
 				63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */,
 				63975B0E1F0A1B020091CB72 /* Info.plist */,
+				8027E4961F541FDE006A2896 /* TripleViewController.swift */,
 			);
 			path = NKFrameLayoutExample;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8027E4971F541FDE006A2896 /* TripleViewController.swift in Sources */,
 				63975B051F0A1B020091CB72 /* ViewController.swift in Sources */,
 				63975B031F0A1B020091CB72 /* AppDelegate.swift in Sources */,
 			);

@@ -17,7 +17,7 @@
 	if ((self = [super initWithDirection:direction])) {
 		_leftContentLayout = [[NKDoubleFrameLayout alloc] initWithDirection:direction];
 		_leftContentLayout.layoutAlignment = NKFrameLayoutAlignmentLeft;
-		_leftContentLayout.intrinsicSizeEnabled = NO;
+		_leftContentLayout.intrinsicSizeEnabled = YES;
 		
 		self.layoutAlignment = NKFrameLayoutAlignmentRight;
 		self.intrinsicSizeEnabled = NO;

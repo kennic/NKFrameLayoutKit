@@ -36,8 +36,8 @@ class TripleViewController: UIViewController {
         frameLayout.spacing = 5.0
         frameLayout.edgeInsets = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)
         frameLayout.showFrameDebug = true
-        frameLayout.layoutAlignment = .center
-        frameLayout.alwaysFitToIntrinsicSize = true
+        frameLayout.layoutAlignment = .right
+//        frameLayout.alwaysFitToIntrinsicSize = true
         view.addSubview(frameLayout)
     }
     

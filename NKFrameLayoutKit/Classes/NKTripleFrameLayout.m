@@ -19,8 +19,8 @@
 		_leftContentLayout.layoutAlignment = NKFrameLayoutAlignmentLeft;
 		_leftContentLayout.intrinsicSizeEnabled = YES;
 		
-		self.layoutAlignment = NKFrameLayoutAlignmentRight;
-		self.intrinsicSizeEnabled = NO;
+//		self.layoutAlignment = NKFrameLayoutAlignmentRight;
+//		self.intrinsicSizeEnabled = NO;
 		self.frameLayout1 = _leftContentLayout;
 	}
 	
@@ -105,6 +105,11 @@
 	
 	_leftContentLayout.showFrameDebug = value;
 	self.rightFrameLayout.showFrameDebug = value;
+}
+
+- (void)setLayoutAlignment:(NKFrameLayoutAlignment)layoutAlignment {
+    [super setLayoutAlignment:layoutAlignment];
+    _leftContentLayout.layoutAlignment = layoutAlignment;
 }
 
 @end

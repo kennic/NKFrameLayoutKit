@@ -10,7 +10,7 @@ import UIKit
 import NKFrameLayoutKit
 
 class TripleViewController: UIViewController {
-    var frameLayout : NKTripleFrameLayout!
+    var frameLayout : NKGridFrameLayout!
     
     let label1 = UILabel()
     let label2 = UILabel()
@@ -31,12 +31,13 @@ class TripleViewController: UIViewController {
         self.view.addSubview(label1)
         self.view.addSubview(label2)
         self.view.addSubview(label3)
+        label1.isHidden = true
         
-        frameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [label1, label2, label3])
+        frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [label1, label2, label3])
         frameLayout.spacing = 5.0
         frameLayout.edgeInsets = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)
         frameLayout.showFrameDebug = true
-        frameLayout.layoutAlignment = .right
+        frameLayout.layoutAlignment = .bottom
 //        frameLayout.alwaysFitToIntrinsicSize = true
         view.addSubview(frameLayout)
     }

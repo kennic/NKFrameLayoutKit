@@ -416,15 +416,25 @@
 	CGRect targetFrame = containerFrame;
 	CGFloat space;
 	CGFloat usedSpace = 0.0;
-	__block NKFrameLayout *lastFrameLayout = [_frameArray lastObject];
+    __block NKFrameLayout *lastFrameLayout = (self.layoutAlignment == NKFrameLayoutAlignmentRight || self.layoutAlignment == NKFrameLayoutAlignmentBottom) ? [_frameArray firstObject] : [_frameArray lastObject];
 	
 	if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
-		[_frameArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-			if (!obj.hidden && !obj.targetView.hidden) {
-				lastFrameLayout = obj;
-				*stop = YES;
-			}
-		}];
+        if (self.layoutAlignment == NKFrameLayoutAlignmentRight || self.layoutAlignment == NKFrameLayoutAlignmentBottom) {
+            [_frameArray enumerateObjectsUsingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (!obj.hidden && !obj.targetView.hidden) {
+                    lastFrameLayout = obj;
+                    *stop = YES;
+                }
+            }];
+        }
+        else {
+            [_frameArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (!obj.hidden && !obj.targetView.hidden) {
+                    lastFrameLayout = obj;
+                    *stop = YES;
+                }
+            }];
+        }
 	}
 	
 	NKFrameLayoutDirection direction = self.layoutDirection;
@@ -459,7 +469,6 @@
 			case NKFrameLayoutAlignmentRight:
 			{
 				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameArray];
-				lastFrameLayout = [invertedFrameArray lastObject];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
@@ -555,7 +564,6 @@
 			case NKFrameLayoutAlignmentBottom:
 			{
 				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameArray];
-				lastFrameLayout = [invertedFrameArray lastObject];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;

@@ -273,10 +273,12 @@
 		CGSize frameContentSize;
 		CGFloat space;
 		CGFloat usedSpace = 0;
-		__block NKFrameLayout *lastFrameLayout = [_frameArray lastObject];
+		__block BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
+		__block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
 		
 		if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
-			[_frameArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			NSEnumerationOptions options = isInvertedAlignment ? NSEnumerationConcurrent : NSEnumerationReverse;
+			[_frameArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 				if (!obj.hidden && !obj.targetView.hidden) {
 					lastFrameLayout = obj;
 					*stop = YES;
@@ -411,30 +413,22 @@
 	[super layoutSubviews];
 	if (CGSizeEqualToSize(self.bounds.size, CGSizeZero)) return;
 	
-	CGRect containerFrame	= UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
+	CGRect containerFrame = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
 	CGSize frameContentSize;
 	CGRect targetFrame = containerFrame;
 	CGFloat space;
 	CGFloat usedSpace = 0.0;
-    __block NKFrameLayout *lastFrameLayout = (self.layoutAlignment == NKFrameLayoutAlignmentRight || self.layoutAlignment == NKFrameLayoutAlignmentBottom) ? [_frameArray firstObject] : [_frameArray lastObject];
+	__block BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
+    __block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
 	
 	if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
-        if (self.layoutAlignment == NKFrameLayoutAlignmentRight || self.layoutAlignment == NKFrameLayoutAlignmentBottom) {
-            [_frameArray enumerateObjectsUsingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (!obj.hidden && !obj.targetView.hidden) {
-                    lastFrameLayout = obj;
-                    *stop = YES;
-                }
-            }];
-        }
-        else {
-            [_frameArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (!obj.hidden && !obj.targetView.hidden) {
-                    lastFrameLayout = obj;
-                    *stop = YES;
-                }
-            }];
-        }
+		NSEnumerationOptions options = isInvertedAlignment ? NSEnumerationConcurrent : NSEnumerationReverse;
+		[_frameArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			if (!obj.hidden && !obj.targetView.hidden) {
+				lastFrameLayout = obj;
+				*stop = YES;
+			}
+		}];
 	}
 	
 	NKFrameLayoutDirection direction = self.layoutDirection;

@@ -19,7 +19,7 @@ class TripleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //        label1.numberOfLines = 0
+//        label1.numberOfLines = 0
         label1.backgroundColor = UIColor.lightGray
         label2.backgroundColor = UIColor.brown
         label3.backgroundColor = UIColor.darkGray
@@ -45,8 +45,8 @@ class TripleViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let frameLayoutFrame = CGRect(x: 0.0, y: view.bounds.size.height/3, width: view.bounds.size.width, height: 300.0)
-        let frameLayoutSize = frameLayout.sizeThatFits(frameLayoutFrame.size)
-        //        frameLayout.frame = CGRect(x: frameLayoutFrame.origin.x, y: frameLayoutFrame.origin.y, width: frameLayoutSize.width, height: frameLayoutSize.height)
+//        let frameLayoutSize = frameLayout.sizeThatFits(frameLayoutFrame.size)
+//        frameLayout.frame = CGRect(x: frameLayoutFrame.origin.x, y: frameLayoutFrame.origin.y, width: frameLayoutSize.width, height: frameLayoutSize.height)
         frameLayout.frame = frameLayoutFrame
     }
     

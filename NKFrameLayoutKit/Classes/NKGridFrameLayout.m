@@ -273,7 +273,7 @@
 		CGSize frameContentSize;
 		CGFloat space;
 		CGFloat usedSpace = 0;
-		__block BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
+		BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
 		__block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
 		
 		if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
@@ -418,7 +418,7 @@
 	CGRect targetFrame = containerFrame;
 	CGFloat space;
 	CGFloat usedSpace = 0.0;
-	__block BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
+	BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
     __block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
 	
 	if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {

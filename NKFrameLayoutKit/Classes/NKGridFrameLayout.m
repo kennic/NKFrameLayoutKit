@@ -510,6 +510,7 @@
 				break;
 				
 			case NKFrameLayoutAlignmentCenter:
+            {
                 for (NKFrameLayout *frameLayout in _frameArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
@@ -540,7 +541,7 @@
                     targetFrame.origin.x += spaceToCenter;
                     frameLayout.frame = targetFrame;
                 }
-                
+            }
                 break;
                 
 		}
@@ -623,6 +624,7 @@
 				break;
 				
             case NKFrameLayoutAlignmentCenter:
+            {
                 for (NKFrameLayout *frameLayout in _frameArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
@@ -653,7 +655,7 @@
                     targetFrame.origin.y += spaceToCenter;
                     frameLayout.frame = targetFrame;
                 }
-                
+            }
                 break;
                 
         }

@@ -25,20 +25,20 @@ class TripleViewController: UIViewController {
         label3.backgroundColor = UIColor.darkGray
         
         label1.text = "label1label1"
-        label2.text = "label2"
+        label2.text = "label2label2label2"
         label3.text = "label3"
         
         self.view.addSubview(label1)
         self.view.addSubview(label2)
         self.view.addSubview(label3)
 //        label1.isHidden = true
-		
+
         frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [label1, label2, label3])
         frameLayout.spacing = 5.0
         frameLayout.edgeInsets = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)
         frameLayout.showFrameDebug = true
         frameLayout.layoutAlignment = .bottom
-        frameLayout.intrinsicSizeEnabled = false
+//      frameLayout.intrinsicSizeEnabled = false
         view.addSubview(frameLayout)
     }
     

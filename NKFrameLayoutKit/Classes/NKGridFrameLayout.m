@@ -492,6 +492,7 @@
 				NSInteger visibleFrames = [self numberOfVisibleFrames];
 				CGFloat spaces = (visibleFrames - 1) * self.spacing;
 				CGFloat cellSize = (containerFrame.size.width - spaces)/(float)visibleFrames;
+                if (self.roundUpValue) cellSize = roundf(cellSize);
 				
 				for (NKFrameLayout *frameLayout in _frameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
@@ -507,24 +508,40 @@
 				break;
 				
 			case NKFrameLayoutAlignmentCenter:
-			{
-				NSInteger visibleFrames = [self numberOfVisibleFrames];
-				CGFloat spaces = (visibleFrames - 1) * self.spacing;
-				CGFloat cellSize = (containerFrame.size.width - spaces)/(float)visibleFrames;
-				if (self.roundUpValue) cellSize = roundf(cellSize);
-				
-				for (NKFrameLayout *frameLayout in _frameArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
-					
-					frameContentSize			= CGSizeMake(cellSize, containerFrame.size.height);
-					targetFrame.origin.x		= containerFrame.origin.x + usedSpace;
-					targetFrame.size.width		= frameContentSize.width;
-					frameLayout.frame			= targetFrame;
-					
-					usedSpace += frameContentSize.width + self.spacing;
-				}
-			}
-				break;
+            {
+                for (NKFrameLayout *frameLayout in _frameArray) {
+                    if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+                    
+                    frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+                    CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
+                    if (frameLayout.intrinsicSizeEnabled) {
+                        frameContentSize = fitSize;
+                    }
+                    else {
+                        frameContentSize.width = fitSize.width;
+                    }
+                    
+                    targetFrame.origin.x		= containerFrame.origin.x + usedSpace;
+                    targetFrame.size            = frameContentSize;
+                    frameLayout.frame			= targetFrame;
+                    
+                    space = (frameContentSize.width>0 ? self.spacing : 0);
+                    space = frameLayout != lastFrameLayout ? space : 0.0;
+                    usedSpace += frameContentSize.width + space;
+                }
+                
+                CGFloat spaceToCenter = (containerFrame.size.width - usedSpace)/2;
+                
+                for (NKFrameLayout *frameLayout in _frameArray) {
+                    if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+                    
+                    targetFrame = frameLayout.frame;
+                    targetFrame.origin.x += spaceToCenter;
+                    frameLayout.frame = targetFrame;
+                }
+            }
+                break;
+                
 		}
 	}
 	else if (direction==NKFrameLayoutDirectionVertical) {
@@ -602,26 +619,42 @@
 			}
 				break;
 				
-			case NKFrameLayoutAlignmentCenter:
-			{
-				NSInteger visibleFrames = [self numberOfVisibleFrames];
-				CGFloat spaces = (visibleFrames - 1) * self.spacing;
-				CGFloat cellSize = (containerFrame.size.height - spaces)/(float)visibleFrames;
-				if (self.roundUpValue) cellSize = roundf(cellSize);
-				
-				for (NKFrameLayout *frameLayout in _frameArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
-					
-					frameContentSize			= CGSizeMake(containerFrame.size.width, cellSize);
-					targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
-					targetFrame.size.height		= frameContentSize.height;
-					frameLayout.frame			= targetFrame;
-					
-					usedSpace += frameContentSize.height + self.spacing;
-				}
-			}
-				break;
-		}
+            case NKFrameLayoutAlignmentCenter:
+            {
+                for (NKFrameLayout *frameLayout in _frameArray) {
+                    if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+                    
+                    frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+                    CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
+                    if (frameLayout.intrinsicSizeEnabled) {
+                        frameContentSize = fitSize;
+                    }
+                    else {
+                        frameContentSize.height = fitSize.height;
+                    }
+                    
+                    targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
+                    targetFrame.size            = frameContentSize;
+                    frameLayout.frame			= targetFrame;
+                    
+                    space = (frameContentSize.height>0 ? self.spacing : 0);
+                    space = frameLayout != lastFrameLayout ? space : 0.0;
+                    usedSpace += frameContentSize.height + space;
+                }
+                
+                CGFloat spaceToCenter = (containerFrame.size.height - usedSpace)/2;
+                
+                for (NKFrameLayout *frameLayout in _frameArray) {
+                    if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+                    
+                    targetFrame = frameLayout.frame;
+                    targetFrame.origin.y += spaceToCenter;
+                    frameLayout.frame = targetFrame;
+                }
+            }
+                break;
+                
+        }
 	}
 }
 

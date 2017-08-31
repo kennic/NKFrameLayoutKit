@@ -472,10 +472,8 @@
 						targetFrame.size.width	= containerFrame.size.width - usedSpace;
 					}
 					else {
-						frameContentSize		= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
-						if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
-							frameContentSize	= [frameLayout sizeThatFits:frameContentSize];
-						}
+						frameContentSize 		= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+						frameContentSize 		= [frameLayout sizeThatFits:frameContentSize];
 						
 						targetFrame.origin.x	= MAX(self.bounds.size.width - frameContentSize.width - self.edgeInsets.right - usedSpace, 0);
 						targetFrame.size.width	= frameContentSize.width;
@@ -584,10 +582,8 @@
 						targetFrame.size.height	= containerFrame.size.height - usedSpace;
 					}
 					else {
-						frameContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
-						if (frameLayout==lastFrameLayout || self.intrinsicSizeEnabled) {
-							frameContentSize		= [frameLayout sizeThatFits:frameContentSize];
-						}
+						frameContentSize 		= CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+						frameContentSize 		= [frameLayout sizeThatFits:frameContentSize];
 						
 						targetFrame.origin.y	= MAX(self.bounds.size.height - frameContentSize.height - self.edgeInsets.bottom - usedSpace, 0);
 						targetFrame.size.height	= frameContentSize.height;

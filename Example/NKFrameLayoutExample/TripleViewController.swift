@@ -32,13 +32,13 @@ class TripleViewController: UIViewController {
         self.view.addSubview(label2)
         self.view.addSubview(label3)
 //        label1.isHidden = true
-        
+
         frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [label1, label2, label3])
         frameLayout.spacing = 5.0
         frameLayout.edgeInsets = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)
         frameLayout.showFrameDebug = true
-        frameLayout.layoutAlignment = .center
-        frameLayout.intrinsicSizeEnabled = false
+        frameLayout.layoutAlignment = .bottom
+//      frameLayout.intrinsicSizeEnabled = false
         view.addSubview(frameLayout)
     }
     

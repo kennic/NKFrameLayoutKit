@@ -112,12 +112,18 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	NSInteger horizontalEdgeValues	= _edgeInsets.top  + _edgeInsets.bottom;
 	
 	if (CGSizeEqualToSize(_minSize, _maxSize) && _minSize.width>0 && _minSize.height>0) {
-		result = _minSize;
+		result = _minSize; // fixSize
 	}
 	else {
 		CGSize contentSize = CGSizeMake(MAX(size.width - verticalEdgeValues, 0), MAX(size.height - horizontalEdgeValues, 0));
 		
-		result = [self targetSizeThatFits:contentSize];
+		if (_heightRatio > 0.0) {
+			result = contentSize;
+			result.height = contentSize.width * _heightRatio;
+		}
+		else {
+			result = [self targetSizeThatFits:contentSize];
+		}
 		
 		result.width	= MAX(_minSize.width,  result.width);
 		result.height	= MAX(_minSize.height, result.height);

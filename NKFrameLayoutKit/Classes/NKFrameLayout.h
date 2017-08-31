@@ -31,6 +31,8 @@ Single FrameLayout class that handles one view's frame
 @property (nonatomic, assign) CGSize		maxSize;
 /** Fast way to set minSize = maxSize = value */
 @property (nonatomic, assign) CGSize		fixSize;
+/** `sizeThatFits` will return height value base on the ratio of width. This value will be overridden by minSize, maxSize, fixSize */
+@property (nonatomic, assign) CGFloat 		heightRatio;
 /** Return CGSizeZero in sizeThatFits: if targetView.hidden==YES. Default is YES. */
 @property (nonatomic, assign) BOOL			ignoreHiddenView;
 /** This will cache targetView's size to avoid calling sizeThatFits. Default is NO. */

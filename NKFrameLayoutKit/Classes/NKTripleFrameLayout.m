@@ -107,9 +107,15 @@
 	self.rightFrameLayout.showFrameDebug = value;
 }
 
-- (void)setLayoutAlignment:(NKFrameLayoutAlignment)layoutAlignment {
+- (void) setLayoutAlignment:(NKFrameLayoutAlignment)layoutAlignment {
     [super setLayoutAlignment:layoutAlignment];
     _leftContentLayout.layoutAlignment = layoutAlignment;
+}
+
+- (void) setIgnoreHiddenView:(BOOL)value {
+	[super setIgnoreHiddenView:value];
+	
+	_leftContentLayout.ignoreHiddenView = value;
 }
 
 @end

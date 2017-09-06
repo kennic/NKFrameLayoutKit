@@ -576,6 +576,13 @@
 	self.frameLayout2.showFrameDebug = value;
 }
 
+- (void) setIgnoreHiddenView:(BOOL)value {
+	[super setIgnoreHiddenView:value];
+	
+	self.frameLayout1.ignoreHiddenView = value;
+	self.frameLayout2.ignoreHiddenView = value;
+}
+
 
 #pragma mark -
 

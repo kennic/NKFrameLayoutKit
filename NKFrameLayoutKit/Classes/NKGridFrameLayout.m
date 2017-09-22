@@ -301,13 +301,7 @@
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
 						if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
-							CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
-							if (frameLayout == lastFrameLayout) {
-								frameContentSize.height = fitSize.height;
-							}
-							else {
-								frameContentSize = fitSize;
-							}
+							frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 						}
 						
 						space = (frameContentSize.width>0 && frameLayout!=lastFrameLayout ? self.spacing : 0);

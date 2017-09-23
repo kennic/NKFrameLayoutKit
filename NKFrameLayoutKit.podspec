@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NKFrameLayoutKit'
-  s.version          = '1.8.2'
+  s.version          = '1.8.4'
   s.summary          = 'An auto layout kit'
 
 # This description is used to generate tags and improve search results.

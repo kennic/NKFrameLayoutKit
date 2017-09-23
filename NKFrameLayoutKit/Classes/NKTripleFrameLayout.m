@@ -118,5 +118,12 @@
 	_leftContentLayout.ignoreHiddenView = value;
 }
 
+- (void) setNeedsLayout {
+	[super setNeedsLayout];
+	
+	[self.frameLayout1 setNeedsLayout];
+	[self.frameLayout2 setNeedsLayout];
+}
+
 @end
 

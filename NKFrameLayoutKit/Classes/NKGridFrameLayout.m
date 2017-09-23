@@ -768,6 +768,14 @@
 	return value;
 }
 
+- (void) setNeedsLayout {
+	[super setNeedsLayout];
+	
+	for (NKFrameLayout *frameLayout in self.frameArray) {
+		[frameLayout setNeedsLayout];
+	}
+}
+
 #pragma mark -
 
 - (void) setAllowContentHorizontalGrowing:(BOOL)value {

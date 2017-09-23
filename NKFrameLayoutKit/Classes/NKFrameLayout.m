@@ -472,6 +472,11 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	}
 }
 
+- (void) setNeedsLayout {
+	[super setNeedsLayout];
+	[self.targetView setNeedsLayout];
+}
+
 
 #pragma mark -
 

@@ -558,6 +558,12 @@
 	self.frameLayout2.shouldCacheSize = value;
 }
 
+- (void) setNeedsLayout {
+	[super setNeedsLayout];
+	[self.frameLayout1 setNeedsLayout];
+	[self.frameLayout2 setNeedsLayout];
+}
+
 - (BOOL) shouldCacheSize {
 	return self.frameLayout1.shouldCacheSize && self.frameLayout2.shouldCacheSize;
 }

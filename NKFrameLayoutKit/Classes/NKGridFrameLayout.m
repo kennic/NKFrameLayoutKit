@@ -602,7 +602,7 @@
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize			= CGSizeMake(containerFrame.size.width, cellSize);
-					if (self.intrinsicSizeEnabled) frameContentSize = [frameLayout sizeThatFits:frameContentSize];
+//					if (frameLayout.intrinsicSizeEnabled) frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 					
 					targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
 					targetFrame.size.height		= frameContentSize.height;

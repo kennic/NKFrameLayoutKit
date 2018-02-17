@@ -445,9 +445,9 @@
 						}
 					}
 					
-					targetFrame.origin.x		= containerFrame.origin.x + usedSpace;
-					targetFrame.size.width		= frameContentSize.width;
-					frameLayout.frame			= targetFrame;
+					targetFrame.origin.x	= containerFrame.origin.x + usedSpace;
+					targetFrame.size.width	= frameContentSize.width;
+					frameLayout.frame		= targetFrame;
 					
 					space = (frameContentSize.width>0 ? self.spacing : 0);
 					usedSpace += frameContentSize.width + space;
@@ -491,10 +491,10 @@
 				for (NKFrameLayout *frameLayout in _frameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
-					frameContentSize			= CGSizeMake(cellSize, containerFrame.size.height);
-					targetFrame.origin.x		= containerFrame.origin.x + usedSpace;
-					targetFrame.size.width		= frameContentSize.width;
-					frameLayout.frame			= targetFrame;
+					frameContentSize		= CGSizeMake(cellSize, containerFrame.size.height);
+					targetFrame.origin.x	= containerFrame.origin.x + usedSpace;
+					targetFrame.size.width	= frameContentSize.width;
+					frameLayout.frame		= targetFrame;
 					
 					usedSpace += frameContentSize.width + self.spacing;
 				}
@@ -515,9 +515,9 @@
                         frameContentSize.width = fitSize.width;
                     }
                     
-                    targetFrame.origin.x		= containerFrame.origin.x + usedSpace;
-                    targetFrame.size            = frameContentSize;
-                    frameLayout.frame			= targetFrame;
+                    targetFrame.origin.x	= containerFrame.origin.x + usedSpace;
+                    targetFrame.size		= frameContentSize;
+                    frameLayout.frame		= targetFrame;
                     
                     space = (frameContentSize.width>0 ? self.spacing : 0);
                     space = frameLayout != lastFrameLayout ? space : 0.0;
@@ -544,7 +544,7 @@
 				for (NKFrameLayout *frameLayout in _frameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
-					frameContentSize			= CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+					frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
 					if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
 						CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
 						if (!frameLayout.intrinsicSizeEnabled && (frameLayout == lastFrameLayout)) {
@@ -602,7 +602,7 @@
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize			= CGSizeMake(containerFrame.size.width, cellSize);
-					if (self.intrinsicSizeEnabled) [frameLayout sizeThatFits:frameContentSize];
+					if (self.intrinsicSizeEnabled) frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 					
 					targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
 					targetFrame.size.height		= frameContentSize.height;
@@ -630,9 +630,14 @@
                     targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
                     targetFrame.size            = frameContentSize;
                     frameLayout.frame			= targetFrame;
-                    
-                    space = (frameContentSize.height>0 ? self.spacing : 0);
-                    space = frameLayout != lastFrameLayout ? space : 0.0;
+					
+					if (frameLayout != lastFrameLayout) {
+						space = (frameContentSize.height>0 ? self.spacing : 0);
+					}
+					else {
+						space = 0.0;
+					}
+					
                     usedSpace += frameContentSize.height + space;
                 }
                 

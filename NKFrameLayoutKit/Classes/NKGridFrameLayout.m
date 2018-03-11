@@ -300,7 +300,7 @@
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
-						if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
+						if (self.intrinsicSizeEnabled) {
 							frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 						}
 						
@@ -342,7 +342,7 @@
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
-						if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
+						if (self.intrinsicSizeEnabled) {
 							frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 						}
 						

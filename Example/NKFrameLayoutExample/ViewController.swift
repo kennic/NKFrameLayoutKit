@@ -7,112 +7,140 @@
 //
 
 import UIKit
+import NKButton
 import NKFrameLayoutKit
 
-class ViewController: UIViewController {
-	let testView = TestView()
+extension NKButton {
+	
+	class func DefaultButton(title:String, color:UIColor) -> NKButton {
+		let button: NKButton = NKButton(title: title, color: color)
+		button.title = title
+		button.titleLabel?.font = UIFont(name: "Helvetica", size: 14)
+		
+		button.setBackgroundColor(color, for: .normal)
+		button.setShadowColor(color, for: .normal)
+		
+		button.shadowOffset = CGSize(width: 0, height: 5)
+		button.shadowOpacity = 0.6
+		button.shadowRadius = 10
+		
+		button.roundedButton = true
+		
+		return button
+	}
+	
+}
 
+class ViewController: UIViewController {
+	var loginButton: NKButton!
+	var facebookButton: NKButton!
+	var twitterButton: NKButton!
+	var forgotButton: NKButton!
+	var frameLayout: NKGridFrameLayout!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
 		
-		self.view.addSubview(testView)
+		loginButton = NKButton.DefaultButton(title: "SIGN IN", color: UIColor(red:0.90, green:0.18, blue:0.15, alpha:1.00))
+		loginButton.setImage(#imageLiteral(resourceName: "login"), for: .normal)
+		loginButton.transitionToCircleWhenLoading = true
+		loginButton.loadingIndicatorStyle = .ballScaleRippleMultiple
+		loginButton.loadingIndicatorAlignment = .center
+		loginButton.underlineTitleDisabled = true
+		loginButton.spacing = 10.0 // space between icon and title
+		loginButton.extendSize = CGSize(width: 50, height: 20)
+		loginButton.imageAlignment = .right(toEdge: false)
+		
+		let facebookIcon = #imageLiteral(resourceName: "facebook")
+		facebookButton = NKButton.DefaultButton(title: "FACEBOOK", color: UIColor(red:0.25, green:0.39, blue:0.80, alpha:1.00))
+		facebookButton.setImage(facebookIcon, for: .normal)
+		facebookButton.setImage(facebookIcon, for: .highlighted)
+		facebookButton.setBackgroundColor(UIColor(red:0.45, green:0.59, blue:1.0, alpha:1.00), for: .highlighted)
+		facebookButton.spacing = 10.0 // space between icon and title
+		facebookButton.transitionToCircleWhenLoading = true
+		facebookButton.loadingIndicatorAlignment = .center
+		facebookButton.underlineTitleDisabled = true
+		facebookButton.loadingIndicatorStyle = .ballClipRotatePulse
+		facebookButton.extendSize = CGSize(width: 50, height: 20)
+		
+		let twitterIcon = #imageLiteral(resourceName: "twitter")
+		twitterButton = NKButton.DefaultButton(title: "TWITTER", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
+		twitterButton.setImage(twitterIcon, for: .normal)
+		twitterButton.setImage(twitterIcon, for: .highlighted)
+		twitterButton.setBackgroundColor(UIColor(red:0.45, green:0.59, blue:1.0, alpha:1.00), for: .highlighted)
+		twitterButton.spacing = 10.0 // space between icon and title
+		twitterButton.transitionToCircleWhenLoading = false
+		twitterButton.imageAlignment = .top(toEdge: false)
+		twitterButton.loadingIndicatorAlignment = .atImage
+		twitterButton.hideImageWhileLoading = true
+		twitterButton.hideTitleWhileLoading = false
+		twitterButton.underlineTitleDisabled = true
+		twitterButton.loadingIndicatorStyle = .ballBeat
+		twitterButton.roundedButton = false
+		twitterButton.cornerRadius = 10.0
+		twitterButton.extendSize = CGSize(width: 50, height: 20)
+		
+		forgotButton = NKButton(title: "Forgot Password?", color: .clear)
+		forgotButton.setImage(#imageLiteral(resourceName: "key"), for: .normal)
+		forgotButton.setTitleColor(.gray, for: .normal)
+		forgotButton.setTitleColor(.gray, for: .highlighted)
+		forgotButton.setTitleColor(.gray, for: .disabled)
+		forgotButton.showsTouchWhenHighlighted = true
+		forgotButton.titleLabel?.font = UIFont(name: "Helvetica", size: 14)
+		forgotButton.spacing = 5.0 // space between icon and title
+		forgotButton.autoSetDisableColor = false
+		forgotButton.extendSize = CGSize(width: 50, height: 20)
+		
+		loginButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
+		facebookButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
+		twitterButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
+		forgotButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
+		
+		frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [loginButton, facebookButton, twitterButton, forgotButton])
+		frameLayout.layoutAlignment = .top
+		frameLayout.intrinsicSizeEnabled = true
+		frameLayout.spacing = 40
+		frameLayout.showFrameDebug = true // uncomment this to see how frameLayout layout its contents
+		
+		self.view.addSubview(loginButton)
+		self.view.addSubview(facebookButton)
+		self.view.addSubview(twitterButton)
+		self.view.addSubview(forgotButton)
+		self.view.addSubview(frameLayout)
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+			self.viewDidLayoutSubviews()
+		}
 	}
-
+	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-		let testViewSize = testView.sizeThatFits(viewSize)
-		
-		// đưa testView vào giữa màn hình
-		testView.frame = CGRect(x: (viewSize.width - testViewSize.width)/2, y: (viewSize.height - testViewSize.height)/2, width: testViewSize.width, height: testViewSize.height)
-	}
-
-
-}
-
-/*
-Class này hướng dẫn cách dùng NKDoubleFrameView để tạo layout cho 2 view bất kỳ theo chiều ngang hoặc dọc
-Tóm tắt các bước khởi tạo:
-- Tạo các view cần hiển thị trước, đưa chúng (addSubview:) vào view chính
-- Khởi tạo NKDoubleFrameLayout với direction mong muốn (ngang hoặc dọc), kèm với 2 view cần layout
-- Thay đổi thông số frameLayout nếu cần
-- Đưa frameLayout vào view chính (addSubview:frameLayout)
-
-Tương tự (sẽ update sau này) là NKTripleFrameLayout dùng để layout 3 view (ví dụ như cấu trúc: [Icon] [Text_Field] [Icon] )
-Hoặc NKGridFrameLayout dùng để layout một mạng lưới không giới hạn các view
-*/
-class TestView: UIView {
-	let label1 = UILabel()
-	let label2 = UILabel()
-	let label3 = UILabel()
-	var frameLayout : NKDoubleFrameLayout!
-	var gridFrameLayout : NKGridFrameLayout!
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		
-		self.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
-		
-		label1.backgroundColor = .yellow
-		label2.backgroundColor = .red
-		label3.backgroundColor = .blue
-		
-		label1.font = UIFont(name: "Helvetica", size: 30)
-		label2.font = UIFont(name: "Helvetica", size: 15)
-		label3.font = UIFont(name: "Helvetica", size: 30)
-		
-		label1.text = "NKDoubleFrameLayout"
-		label2.text = "Dùng NKDoubleFrameLayout để layout 2 view bất kỳ theo chiều ngang (.horizontal) hoặc dọc (.vertical)"
-		label2.numberOfLines = 0
-		
-		label3.text = "Dùng NKGridFrameLayout để multi layout"
-		label3.numberOfLines = 0
-		
-		self.addSubview(label1)
-		self.addSubview(label2)
-		self.addSubview(label3)
-		
-		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [label1, label2]) // khởi tạo layout theo chiều dọc, và gán vào 2 view label1 & label2. Thử thay đổi thành .horizontal để xem thay đổi ra sao
-		frameLayout.leftFrameLayout.fixSize = CGSize(width: 120, height: 0)
-		
-		gridFrameLayout = NKGridFrameLayout(direction: .vertical, andViews: [label3]) // khởi tạo layout theo chiều dọc, và gán vào 2 view label1 & label2. Thử thay đổi thành .horizontal để xem thay đổi ra sao
-		gridFrameLayout.add(frameLayout).fixSize = CGSize(width: 0, height: 120)
-//		gridFrameLayout.fixSize = CGSize(width: 0, height: 320)
-		gridFrameLayout.firstFrameLayout().fixSize = CGSize(width: 120, height: 200)
-		
-		/* // Hoặc cách khởi tạo từng dòng (có thể dùng để thay thế target view khác nếu cần)
-		frameLayout = NKDoubleFrameLayout(direction: .vertical)
-		frameLayout.topFrameLayout.targetView = label1; // gán label1 vào phần layout phía trên
-		frameLayout.bottomFrameLayout.targetView = label2; // gán label2 vào phần layout phía dưới
-		*/
-		
-		// các dòng dưới đây là ví dụ việc thay đổi các thông số
-//		frameLayout.topFrameLayout.minSize = CGSize(width: 0, height: 80)		// set chiều cao tối thiểu của phần label1 phía trên là 80px (width:0 nghĩa là không set giá trị)
-//		frameLayout.bottomFrameLayout.maxSize = CGSize(width: 0, height: 100)	// set chiều cao tối đa của phần label2 phía dưới là 100px
-		
-		frameLayout.spacing = 10.0 // khoảng trống giữa 2 view
-		frameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5) // thêm khoảng trống vào 4 cạnh xung quanh nếu cần
-		
-		gridFrameLayout.spacing = 10.0 // khoảng trống giữa 2 view
-		gridFrameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5) // thêm khoảng trống vào 4 cạnh xung quanh nếu cần
-		gridFrameLayout.showFrameDebug = true // hiển thị các gạch ranh giới để debug
-		
-		self.addSubview(gridFrameLayout)
+		let contentSize = frameLayout.sizeThatFits(CGSize(width: viewSize.width * 0.9, height: viewSize.height))
+		frameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		gridFrameLayout.frame = self.bounds
-	}
-	
-	override func sizeThatFits(_ size: CGSize) -> CGSize {
-		return gridFrameLayout.sizeThatFits(size)
+	@objc func onButtonSelected(_ button: NKButton) {
+		print("Button Selected")
+		
+		button.isLoading = true
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+			button.isLoading = false
+			
+			/*
+			self.button.expandFullscreen(duration: 0.5, completionBlock: { (sender) in
+			UIView.animate(withDuration: 0.25, animations: {
+			button.alpha = 0.0
+			}, completion: { (finished) in
+			button.alpha = 1.0
+			button.isLoading = false
+			})
+			})
+			*/
+		}
 	}
 	
 }
+
+

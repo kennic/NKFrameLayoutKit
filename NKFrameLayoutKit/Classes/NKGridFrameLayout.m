@@ -334,6 +334,20 @@
 		else if (direction==NKFrameLayoutDirectionVertical) {
 			CGFloat maxWidth = 0;
 			
+			for (NKFrameLayout *frameLayout in _frameArray) {
+				if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+				
+				frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+				if (self.intrinsicSizeEnabled) {
+					frameContentSize = [frameLayout sizeThatFits:frameContentSize];
+				}
+				
+				space = (frameContentSize.height>0 && frameLayout!=lastFrameLayout ? self.spacing : 0);
+				usedSpace += frameContentSize.height + space;
+				maxWidth = MAX(maxWidth, frameContentSize.width);
+			}
+			
+			/*
 			switch (self.layoutAlignment) {
 				case NKFrameLayoutAlignmentTop:
 				case NKFrameLayoutAlignmentBottom:
@@ -369,6 +383,7 @@
 				}
 					break;
 			}
+			*/
 			
 			if (self.intrinsicSizeEnabled) result.width = maxWidth;
 			result.height = MIN(usedSpace, size.height);

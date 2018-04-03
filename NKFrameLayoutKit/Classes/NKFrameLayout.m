@@ -145,26 +145,36 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 - (CGSize) targetSizeThatFits:(CGSize)size {
 	CGSize result;
 	
-	if (_shouldCacheSize) {
-		if (_targetView) {
-			NSString *key = [[NSString stringWithFormat:@"%i", (int)[_targetView hash]] stringByAppendingString:NSStringFromCGSize(size)];
-			NSString *value = sizeCacheData[key];
-			
-			if (!value) {
-				result = [_targetView sizeThatFits:size];
-				value = NSStringFromCGSize(result);
-				[sizeCacheData setObject:value forKey:key];
+	if (CGSizeEqualToSize(_minSize, _maxSize) && _minSize.width>0 && _minSize.height>0) {
+		result = _minSize; // fixSize
+	}
+	else {
+		if (_shouldCacheSize) {
+			if (_targetView) {
+				NSString *key = [[NSString stringWithFormat:@"%@", _targetView] stringByAppendingString:NSStringFromCGSize(size)];
+				NSString *value = sizeCacheData[key];
+				
+				if (!value) {
+					result = [_targetView sizeThatFits:size];
+					value = NSStringFromCGSize(result);
+					[sizeCacheData setObject:value forKey:key];
+				}
+				else {
+					result = CGSizeFromString(value);
+				}
 			}
 			else {
-				result = CGSizeFromString(value);
+				result = CGSizeZero;
 			}
 		}
 		else {
-			result = CGSizeZero;
+			result = [_targetView sizeThatFits:size];
 		}
-	}
-	else {
-		result = [_targetView sizeThatFits:size];
+		
+		result.width	= MAX(_minSize.width,  result.width);
+		result.height	= MAX(_minSize.height, result.height);
+		if (_maxSize.width>0  && _maxSize.width>=_minSize.width)   result.width  = MIN(_maxSize.width,  result.width);
+		if (_maxSize.height>0 && _maxSize.height>=_minSize.height) result.height = MIN(_maxSize.height, result.height);
 	}
 	
 	return result;
@@ -223,6 +233,19 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		case UIControlContentHorizontalAlignmentFill:
 			_targetFrame.origin.x	= containerFrame.origin.x;
 			_targetFrame.size.width	= containerFrame.size.width;
+#if DEBUG
+			if (_fixSize.width>0) {
+				NSLog(@"[NKFrameLayout] fixedSize.width is ignored for %@", self);
+			}
+			else {
+				if (_minSize.width>0) {
+					NSLog(@"[NKFrameLayout] minSize.width is ignored for %@", self);
+				}
+				if (_maxSize.width>0) {
+					NSLog(@"[NKFrameLayout] maxSize.width is ignored for %@", self);
+				}
+			}
+#endif
 			break;
 			
 		case UIControlContentHorizontalAlignmentFit:
@@ -243,7 +266,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				_targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height = contentSize.height;
 			}
 			
 			_targetFrame.origin.y = containerFrame.origin.y;
@@ -257,7 +280,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				_targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height = contentSize.height;
 			}
 			
 			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height);
@@ -271,7 +294,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				_targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height = contentSize.height;
 			}
 			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - contentSize.height)/2;
 			break;
@@ -279,6 +302,19 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		case UIControlContentVerticalAlignmentFill:
 			_targetFrame.origin.y	= containerFrame.origin.y;
 			_targetFrame.size.height = containerFrame.size.height;
+#if DEBUG
+			if (_fixSize.height>0) {
+				NSLog(@"[NKFrameLayout] fixedSize.height is ignored for %@", self);
+			}
+			else {
+				if (_minSize.height>0) {
+					NSLog(@"[NKFrameLayout] minSize.height is ignored for %@", self);
+				}
+				if (_maxSize.height>0) {
+					NSLog(@"[NKFrameLayout] maxSize.height is ignored for %@", self);
+				}
+			}
+#endif
 			break;
 			
 		case UIControlContentVerticalAlignmentFit:
@@ -289,7 +325,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
 			else {
-				_targetFrame.size.height	= contentSize.height;
+				_targetFrame.size.height = contentSize.height;
 			}
 			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - _targetFrame.size.height)/2;
 			break;

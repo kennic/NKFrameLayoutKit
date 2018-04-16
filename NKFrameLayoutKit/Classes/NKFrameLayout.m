@@ -234,6 +234,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			_targetFrame.origin.x	= containerFrame.origin.x;
 			_targetFrame.size.width	= containerFrame.size.width;
 #if DEBUG
+		if (_logEnabled) {
 			if (_fixSize.width>0) {
 				NSLog(@"[NKFrameLayout] fixedSize.width is ignored for %@", self);
 			}
@@ -245,6 +246,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 					NSLog(@"[NKFrameLayout] maxSize.width is ignored for %@", self);
 				}
 			}
+		}
 #endif
 			break;
 			
@@ -303,6 +305,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			_targetFrame.origin.y	= containerFrame.origin.y;
 			_targetFrame.size.height = containerFrame.size.height;
 #if DEBUG
+		if (_logEnabled) {
 			if (_fixSize.height>0) {
 				NSLog(@"[NKFrameLayout] fixedSize.height is ignored for %@", self);
 			}
@@ -314,6 +317,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 					NSLog(@"[NKFrameLayout] maxSize.height is ignored for %@", self);
 				}
 			}
+		}
 #endif
 			break;
 			
@@ -511,6 +515,10 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 - (void) setNeedsLayout {
 	[super setNeedsLayout];
 	[self.targetView setNeedsLayout];
+}
+	
+- (NSString*) description {
+	return [NSString stringWithFormat:@"[%@]-targetView: %@", [super description], self.targetView];
 }
 
 

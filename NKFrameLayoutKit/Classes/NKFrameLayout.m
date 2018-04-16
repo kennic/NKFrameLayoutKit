@@ -234,7 +234,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			_targetFrame.origin.x	= containerFrame.origin.x;
 			_targetFrame.size.width	= containerFrame.size.width;
 #if DEBUG
-		if (_logEnabled) {
+		if (_loggingEnabled) {
 			if (_fixSize.width>0) {
 				NSLog(@"[NKFrameLayout] fixedSize.width is ignored for %@", self);
 			}
@@ -305,7 +305,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			_targetFrame.origin.y	= containerFrame.origin.y;
 			_targetFrame.size.height = containerFrame.size.height;
 #if DEBUG
-		if (_logEnabled) {
+		if (_loggingEnabled) {
 			if (_fixSize.height>0) {
 				NSLog(@"[NKFrameLayout] fixedSize.height is ignored for %@", self);
 			}
@@ -510,6 +510,15 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 		
 		if (_showFrameDebug) [self setNeedsDisplay];
 	}
+}
+	
+static BOOL _loggingEnabled = NO;
++ (BOOL) loggingEnabled {
+	return _loggingEnabled;
+}
+	
++ (void) setLoggingEnabled:(BOOL)value {
+	_loggingEnabled = value;
 }
 
 - (void) setNeedsLayout {

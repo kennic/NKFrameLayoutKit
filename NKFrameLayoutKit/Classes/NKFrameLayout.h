@@ -48,7 +48,6 @@ Single FrameLayout class that handles one view's frame
 
 /** Show frame debug */
 @property (nonatomic, assign) BOOL showFrameDebug;
-@property (nonatomic, assign) BOOL logEnabled;
 
 /** Height of target will be grown if this frame's height is larger than target's height. NO will keep original target's height. Default is NO */
 @property (nonatomic, assign) BOOL allowContentVerticalGrowing;
@@ -63,5 +62,7 @@ Single FrameLayout class that handles one view's frame
 
 - (instancetype) initWithTargetView:(UIView*)view;
 + (NKFrameLayout*) frameLayoutWithTargetView:(UIView*)view;
++ (BOOL) loggingEnabled;
++ (void) setLoggingEnabled:(BOOL)value;
 
 @end

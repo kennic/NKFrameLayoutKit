@@ -62,6 +62,10 @@
 
 
 #pragma mark - Properties
+	
+- (NKFrameLayout*) topContentLayout {
+	return _leftContentLayout;
+}
 
 - (NKFrameLayout*) leftFrameLayout {
 	return _leftContentLayout.frameLayout1;

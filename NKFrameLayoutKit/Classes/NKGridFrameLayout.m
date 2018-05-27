@@ -388,19 +388,20 @@
 			if (self.intrinsicSizeEnabled) result.width = maxWidth;
 			result.height = MIN(usedSpace, size.height);
 			//result.height = MIN(usedSpace + self.edgeInsets.top + self.edgeInsets.bottom, size.height);
-			
-			// Validating
-			result.width	= MAX(self.minSize.width,  result.width);
-			result.height	= MAX(self.minSize.height, result.height);
-			if (self.maxSize.width>0  && self.maxSize.width>=self.minSize.width)   result.width  = MIN(self.maxSize.width,  result.width);
-			if (self.maxSize.height>0 && self.maxSize.height>=self.minSize.height) result.height = MIN(self.maxSize.height, result.height);
 		}
+		
+		// Validating
+		result.width	= MAX(self.minSize.width,  result.width);
+		result.height	= MAX(self.minSize.height, result.height);
+		if (self.maxSize.width>0  && self.maxSize.width>=self.minSize.width)   result.width  = MIN(self.maxSize.width,  result.width);
+		if (self.maxSize.height>0 && self.maxSize.height>=self.minSize.height) result.height = MIN(self.maxSize.height, result.height);
 	}
 	
-	result.width  = MIN(result.width,  size.width);
-	result.height = MIN(result.height, size.height);
 	if (result.width>0)  result.width  += self.edgeInsets.left + self.edgeInsets.right;
 	if (result.height>0) result.height += self.edgeInsets.top  + self.edgeInsets.bottom;
+	result.width  = MIN(result.width,  size.width);
+	result.height = MIN(result.height, size.height);
+	
 	return result;
 }
 

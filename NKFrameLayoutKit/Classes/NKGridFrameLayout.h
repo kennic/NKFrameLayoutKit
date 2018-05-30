@@ -14,10 +14,10 @@ Grid FrameLayout class that handles multi views' frame
 */
 @interface NKGridFrameLayout : NKFrameLayout
 
-@property (nonatomic, strong) NSMutableArray<NKFrameLayout*> *frameArray;
+@property (nonatomic, readonly) NSArray<NKFrameLayout*> *frameLayoutArray;
 @property (nonatomic, assign) NSInteger					numberOfFrames;
-@property (nonatomic, assign) NKFrameLayoutDirection	layoutDirection;
-@property (nonatomic, assign) NKFrameLayoutAlignment	layoutAlignment;
+@property (nonatomic, assign) NKFrameLayoutDirection	direction;
+@property (nonatomic, assign) NKFrameLayoutAlignment	alignment;
 /** Space between frames, will be applied only when primary-aligned frame is non-zero */
 @property (nonatomic, assign) CGFloat					spacing;
 ///** Set to YES to returns total contents width, NO to use specified width in sizeThatFits. Default is YES. */
@@ -31,8 +31,8 @@ Grid FrameLayout class that handles multi views' frame
 - (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;
 
 - (NKFrameLayout*) addFrameLayout;
-- (NKFrameLayout*) addFrameLayoutWithTargetView:(UIView*)view;
 - (NKFrameLayout*) addFrameLayout:(NKFrameLayout*)frameLayout;
+- (NKFrameLayout*) addFrameLayoutWithTargetView:(UIView*)view;
 - (NKFrameLayout*) insertFrameLayoutAtIndex:(NSUInteger)index;
 - (NKFrameLayout*) frameLayoutAtIndex:(NSInteger)index;
 - (NKFrameLayout*) frameLayoutWithTag:(NSInteger)tag;
@@ -43,7 +43,7 @@ Grid FrameLayout class that handles multi views' frame
 
 // Keyed-Subscripting
 - (id) objectAtIndexedSubscript:(NSInteger)index;
-- (void) setObject:(id)object  atIndexedSubscript:(NSInteger)index;
+- (void) setObject:(id)object atIndexedSubscript:(NSInteger)index;
 
 - (NKFrameLayout*) insertFrameLayout:(NKFrameLayout*)frameLayout atIndex:(NSUInteger)index;
 - (void) replaceFrameLayout:(NKFrameLayout*)frameLayout atIndex:(NSUInteger)index;

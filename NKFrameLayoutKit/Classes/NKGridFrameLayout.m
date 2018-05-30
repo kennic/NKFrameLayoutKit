@@ -8,6 +8,12 @@
 
 #import "NKGridFrameLayout.h"
 
+@interface NKGridFrameLayout()
+	
+@property (nonatomic, strong) NSMutableArray<NKFrameLayout*> *frameLayoutArray;
+	
+@end
+
 @implementation NKGridFrameLayout
 
 
@@ -70,7 +76,7 @@
 	self.roundUpValue			= NO;
 	self.layoutDirection		= NKFrameLayoutDirectionAuto;
 	self.layoutAlignment		= NKFrameLayoutAlignmentTop;
-	self.frameArray				= [NSMutableArray array];
+	_frameLayoutArray				= [NSMutableArray array];
 }
 
 
@@ -79,7 +85,7 @@
 - (NKFrameLayout*) addFrameLayout {
 	NKFrameLayout *frameLayout = [[NKFrameLayout alloc] init];
 	frameLayout.showFrameDebug = self.showFrameDebug;
-	[_frameArray addObject:frameLayout];
+	[_frameLayoutArray addObject:frameLayout];
 	[self addSubview:frameLayout];
 	return frameLayout;
 }
@@ -103,14 +109,14 @@
 
 - (NKFrameLayout*) insertFrameLayoutAtIndex:(NSUInteger)index {
 	NKFrameLayout *frameLayout = [[NKFrameLayout alloc] init];
-	[_frameArray insertObject:frameLayout atIndex:index];
+	[_frameLayoutArray insertObject:frameLayout atIndex:index];
 	[self addSubview:frameLayout];
 	return frameLayout;
 }
 
 - (NKFrameLayout*) addFrameLayout:(NKFrameLayout*)frameLayout {
 	if (frameLayout) {
-		if (![_frameArray containsObject:frameLayout]) [_frameArray addObject:frameLayout];
+		if (![_frameLayoutArray containsObject:frameLayout]) [_frameLayoutArray addObject:frameLayout];
 		[self addSubview:frameLayout];
 		return frameLayout;
 	}
@@ -121,7 +127,7 @@
 
 - (NKFrameLayout*) insertFrameLayout:(NKFrameLayout*)frameLayout atIndex:(NSUInteger)index {
 	if (frameLayout) {
-		[_frameArray insertObject:frameLayout atIndex:index];
+		[_frameLayoutArray insertObject:frameLayout atIndex:index];
 		[self addSubview:frameLayout];
 		return frameLayout;
 	}
@@ -131,33 +137,33 @@
 }
 
 - (void) removeFrameAtIndex:(NSUInteger)index {
-	if (index<[_frameArray count]) {
-		NKFrameLayout *frameLayout = [_frameArray objectAtIndex:index];
+	if (index<[_frameLayoutArray count]) {
+		NKFrameLayout *frameLayout = [_frameLayoutArray objectAtIndex:index];
 		if (frameLayout.superview==self) [frameLayout removeFromSuperview];
 		if (self.autoRemoveTargetView) [frameLayout.targetView removeFromSuperview];
 		frameLayout.targetView = nil;
-		[_frameArray removeObjectAtIndex:index];
+		[_frameLayoutArray removeObjectAtIndex:index];
 	}
 }
 
 - (void) removeAllFrameLayout {
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		if (self.autoRemoveTargetView) [frameLayout.targetView removeFromSuperview];
 		frameLayout.targetView = nil;
 		if (frameLayout.superview==self) [frameLayout removeFromSuperview];
 	}
 	
-	[_frameArray removeAllObjects];
+	[_frameLayoutArray removeAllObjects];
 }
 
 - (NKFrameLayout*) frameLayoutAtIndex:(NSInteger)index {
-	return index>=0 && index<[_frameArray count] ? _frameArray[index] : nil;
+	return index>=0 && index<[_frameLayoutArray count] ? _frameLayoutArray[index] : nil;
 }
 
 - (NKFrameLayout*) frameLayoutWithTag:(NSInteger)tag {
 	NKFrameLayout *result = nil;
 	
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		if (frameLayout.tag==tag) {
 			result = frameLayout;
 			break;
@@ -170,7 +176,7 @@
 - (NKFrameLayout*) frameLayoutWithView:(UIView*)view {
 	NKFrameLayout *result = nil;
 	
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		if (frameLayout.targetView==view) {
 			result = frameLayout;
 			break;
@@ -185,13 +191,13 @@
 }
 
 - (NKFrameLayout*) lastFrameLayout {
-	return [self frameLayoutAtIndex:[_frameArray count] - 1];
+	return [self frameLayoutAtIndex:[_frameLayoutArray count] - 1];
 }
 
 - (void) setClipsToBounds:(BOOL)value {
 	[super setClipsToBounds:value];
 	
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.clipsToBounds = value;
 	}
 }
@@ -199,7 +205,7 @@
 - (void) setShowFrameDebug:(BOOL)value {
 	[super setShowFrameDebug:value];
 	
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.showFrameDebug = value;
 	}
 }
@@ -217,7 +223,7 @@
 		BOOL stop = NO;
 		NSInteger index = 0;
 		
-		for (NKFrameLayout *frameLayout in _frameArray) {
+		for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 			block(frameLayout, index, &stop);
 			if (stop) break;
 			index++;
@@ -228,7 +234,7 @@
 #pragma mark -
 
 - (void) setNumberOfFrames:(NSInteger)number {
-	NSInteger count = [_frameArray count];
+	NSInteger count = [_frameLayoutArray count];
 	
 	if (number==0) {
 		[self removeAllFrameLayout];
@@ -236,28 +242,28 @@
 	}
 	
 	if (number<count) {
-		while ([_frameArray count]>number) {
-			[self removeFrameAtIndex:[_frameArray count]-1];
+		while ([_frameLayoutArray count]>number) {
+			[self removeFrameAtIndex:[_frameLayoutArray count]-1];
 		}
 	}
 	else if (number>count) {
-		if (!self.frameArray) self.frameArray = [NSMutableArray array];
+		if (!_frameLayoutArray) self.frameLayoutArray = [NSMutableArray array];
 		
-		while ([_frameArray count]<number) {
-			[self insertFrameLayoutAtIndex:[_frameArray count]];
+		while ([_frameLayoutArray count]<number) {
+			[self insertFrameLayoutAtIndex:[_frameLayoutArray count]];
 		}
 	}
 }
 
 - (NSInteger) numberOfFrames {
-	return [_frameArray count];
+	return [_frameLayoutArray count];
 }
 
 - (void) setFrameArray:(NSMutableArray *)array {
-	if (_frameArray!=array) {
+	if (_frameLayoutArray!=array) {
 		[self removeAllFrameLayout];
 		
-		_frameArray = array;
+		_frameLayoutArray = array;
 	}
 }
 
@@ -274,11 +280,11 @@
 		CGFloat space;
 		CGFloat usedSpace = 0;
 		BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
-		__block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
+		__block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameLayoutArray firstObject] : [_frameLayoutArray lastObject];
 		
 		if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
 			NSEnumerationOptions options = isInvertedAlignment ? NSEnumerationConcurrent : NSEnumerationReverse;
-			[_frameArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			[_frameLayoutArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 				if (!obj.hidden && !obj.targetView.hidden) {
 					lastFrameLayout = obj;
 					*stop = YES;
@@ -296,7 +302,7 @@
 				case NKFrameLayoutAlignmentLeft:
 				case NKFrameLayoutAlignmentRight:
 				{
-					for (NKFrameLayout *frameLayout in _frameArray) {
+					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
@@ -315,7 +321,7 @@
 				case NKFrameLayoutAlignmentCenter:
 				{
 					frameContentSize = CGSizeMake(containerFrame.size.width/(float)[self numberOfVisibleFrames], containerFrame.size.height);
-					for (NKFrameLayout *frameLayout in _frameArray) {
+					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = [frameLayout sizeThatFits:frameContentSize];
@@ -334,7 +340,7 @@
 		else if (direction==NKFrameLayoutDirectionVertical) {
 			CGFloat maxWidth = 0;
 			
-			for (NKFrameLayout *frameLayout in _frameArray) {
+			for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 				if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 				
 				frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
@@ -352,7 +358,7 @@
 				case NKFrameLayoutAlignmentTop:
 				case NKFrameLayoutAlignmentBottom:
 				{
-					for (NKFrameLayout *frameLayout in _frameArray) {
+					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
@@ -371,7 +377,7 @@
 				case NKFrameLayoutAlignmentCenter:
 				{
 					frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height/(float)[self numberOfVisibleFrames]);
-					for (NKFrameLayout *frameLayout in _frameArray) {
+					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = [frameLayout sizeThatFits:frameContentSize];
@@ -413,7 +419,7 @@
 }
 
 - (void) setObject:(id)object  atIndexedSubscript:(NSInteger)index {
-	_frameArray[index] = object;
+	_frameLayoutArray[index] = object;
 }
 
 
@@ -429,11 +435,11 @@
 	CGFloat space;
 	CGFloat usedSpace = 0.0;
 	BOOL isInvertedAlignment = _layoutAlignment == NKFrameLayoutAlignmentRight || _layoutAlignment == NKFrameLayoutAlignmentBottom;
-    __block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameArray firstObject] : [_frameArray lastObject];
+    __block NKFrameLayout *lastFrameLayout = isInvertedAlignment ? [_frameLayoutArray firstObject] : [_frameLayoutArray lastObject];
 	
 	if (lastFrameLayout.hidden || lastFrameLayout.targetView.hidden) {
 		NSEnumerationOptions options = isInvertedAlignment ? NSEnumerationConcurrent : NSEnumerationReverse;
-		[_frameArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		[_frameLayoutArray enumerateObjectsWithOptions:options usingBlock:^(NKFrameLayout * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 			if (!obj.hidden && !obj.targetView.hidden) {
 				lastFrameLayout = obj;
 				*stop = YES;
@@ -447,7 +453,7 @@
 	if (direction==NKFrameLayoutDirectionHorizontal) {
 		switch (self.layoutAlignment) {
 			case NKFrameLayoutAlignmentLeft:
-				for (NKFrameLayout *frameLayout in _frameArray) {
+				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
@@ -472,7 +478,7 @@
 				
 			case NKFrameLayoutAlignmentRight:
 			{
-				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameArray];
+				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
@@ -504,7 +510,7 @@
 				CGFloat cellSize = (containerFrame.size.width - spaces)/(float)visibleFrames;
                 if (self.roundUpValue) cellSize = roundf(cellSize);
 				
-				for (NKFrameLayout *frameLayout in _frameArray) {
+				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize		= CGSizeMake(cellSize, containerFrame.size.height);
@@ -519,7 +525,7 @@
 				
 			case NKFrameLayoutAlignmentCenter:
             {
-                for (NKFrameLayout *frameLayout in _frameArray) {
+                for (NKFrameLayout *frameLayout in _frameLayoutArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
                     frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
@@ -542,7 +548,7 @@
                 
                 CGFloat spaceToCenter = (containerFrame.size.width - usedSpace)/2;
                 
-                for (NKFrameLayout *frameLayout in _frameArray) {
+                for (NKFrameLayout *frameLayout in _frameLayoutArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
                     targetFrame = frameLayout.frame;
@@ -557,7 +563,7 @@
 	else if (direction==NKFrameLayoutDirectionVertical) {
 		switch (self.layoutAlignment) {
 			case NKFrameLayoutAlignmentTop:
-				for (NKFrameLayout *frameLayout in _frameArray) {
+				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
@@ -582,7 +588,7 @@
 				
 			case NKFrameLayoutAlignmentBottom:
 			{
-				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameArray];
+				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
@@ -614,7 +620,7 @@
 				CGFloat cellSize = (containerFrame.size.height - spaces)/(float)visibleFrames;
 				if (self.roundUpValue) cellSize = roundf(cellSize);
 				
-				for (NKFrameLayout *frameLayout in _frameArray) {
+				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 					
 					frameContentSize			= CGSizeMake(containerFrame.size.width, cellSize);
@@ -631,7 +637,7 @@
 				
             case NKFrameLayoutAlignmentCenter:
             {
-                for (NKFrameLayout *frameLayout in _frameArray) {
+                for (NKFrameLayout *frameLayout in _frameLayoutArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
                     frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
@@ -659,7 +665,7 @@
                 
                 CGFloat spaceToCenter = (containerFrame.size.height - usedSpace)/2;
                 
-                for (NKFrameLayout *frameLayout in _frameArray) {
+                for (NKFrameLayout *frameLayout in _frameLayoutArray) {
                     if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
                     
                     targetFrame = frameLayout.frame;
@@ -675,7 +681,7 @@
 
 - (NSInteger) numberOfVisibleFrames {
 	NSInteger count = 0;
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 		count++;
 	}
@@ -687,11 +693,11 @@
 #pragma mark - HorizontalLayout
 
 - (NKFrameLayout*) leftFrameLayout {
-	return [_frameArray count]>0 ? [_frameArray objectAtIndex:0] : nil;
+	return [_frameLayoutArray count]>0 ? [_frameLayoutArray objectAtIndex:0] : nil;
 }
 
 - (NKFrameLayout*) rightFrameLayout {
-	return [_frameArray count]>1 ? [_frameArray objectAtIndex:1] : nil;
+	return [_frameLayoutArray count]>1 ? [_frameLayoutArray objectAtIndex:1] : nil;
 }
 
 - (void) setLeftFrameLayout:(NKFrameLayout*)frameLayout {
@@ -706,11 +712,11 @@
 #pragma mark - VerticalLayout
 
 - (NKFrameLayout*) topFrameLayout {
-	return [_frameArray count]>0 ? [_frameArray objectAtIndex:0] : nil;
+	return [_frameLayoutArray count]>0 ? [_frameLayoutArray objectAtIndex:0] : nil;
 }
 
 - (NKFrameLayout*) bottomFrameLayout {
-	return [_frameArray count]>1 ? [_frameArray lastObject] : nil;
+	return [_frameLayoutArray count]>1 ? [_frameLayoutArray lastObject] : nil;
 }
 
 - (void) setTopFrameLayout:(NKFrameLayout*)frameLayout {
@@ -718,7 +724,7 @@
 }
 
 - (void) setBottomFrameLayout:(NKFrameLayout*)frameLayout {
-	[self replaceFrameLayout:frameLayout atIndex:[_frameArray count] - 1];
+	[self replaceFrameLayout:frameLayout atIndex:[_frameLayoutArray count] - 1];
 }
 
 
@@ -739,17 +745,17 @@
 
 - (void) replaceFrameLayout:(NKFrameLayout*)frameLayout atIndex:(NSUInteger)index {
 	if (frameLayout) {
-		NSInteger count = [_frameArray count];
+		NSInteger count = [_frameLayoutArray count];
 		NKFrameLayout *currentFrameLayout = nil;
 		if (count>index) {
-			currentFrameLayout = [_frameArray objectAtIndex:index];
+			currentFrameLayout = [_frameLayoutArray objectAtIndex:index];
 		}
 		
 		if (currentFrameLayout!=frameLayout) {
 			if (currentFrameLayout.superview==self) [currentFrameLayout removeFromSuperview];
 			
 			if (frameLayout) {
-				[_frameArray insertObject:frameLayout atIndex:index];
+				[_frameLayoutArray insertObject:frameLayout atIndex:index];
 				[self addSubview:frameLayout];
 			}
 		}
@@ -773,7 +779,7 @@
 }
 
 - (void) setShouldCacheSize:(BOOL)value {
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.shouldCacheSize = value;
 	}
 }
@@ -781,7 +787,7 @@
 - (BOOL) shouldCacheSize {
 	BOOL value = YES;
 	
-	for (NKFrameLayout *frameLayout in _frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		value = value && frameLayout.shouldCacheSize;
 		if (!value) break;
 	}
@@ -792,7 +798,7 @@
 - (void) setNeedsLayout {
 	[super setNeedsLayout];
 	
-	for (NKFrameLayout *frameLayout in self.frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		[frameLayout setNeedsLayout];
 	}
 }
@@ -800,25 +806,25 @@
 #pragma mark -
 
 - (void) setAllowContentHorizontalGrowing:(BOOL)value {
-	for (NKFrameLayout *frameLayout in self.frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.allowContentHorizontalGrowing = value;
 	}
 }
 
 - (void) setAllowContentVerticalGrowing:(BOOL)value {
-	for (NKFrameLayout *frameLayout in self.frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.allowContentVerticalGrowing = value;
 	}
 }
 
 - (void) setAllowContentHorizontalShrinking:(BOOL)value {
-	for (NKFrameLayout *frameLayout in self.frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.allowContentHorizontalShrinking = value;
 	}
 }
 
 - (void) setAllowContentVerticalShrinking:(BOOL)value {
-	for (NKFrameLayout *frameLayout in self.frameArray) {
+	for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 		frameLayout.allowContentVerticalShrinking = value;
 	}
 }
@@ -827,7 +833,8 @@
 #pragma mark -
 
 - (void) dealloc {
-	self.frameArray = nil;
+	[_frameLayoutArray removeAllObjects];
+	self.frameLayoutArray = nil;
 }
 
 @end

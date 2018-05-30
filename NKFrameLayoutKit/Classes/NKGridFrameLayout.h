@@ -15,7 +15,7 @@ Grid FrameLayout class that handles multi views' frame
 @interface NKGridFrameLayout : NKFrameLayout
 
 @property (nonatomic, readonly) NSArray<NKFrameLayout*> *frameLayoutArray;
-@property (nonatomic, assign) NSInteger					numberOfFrames;
+@property (nonatomic, assign) NSInteger					numberOfFrameLayouts;
 @property (nonatomic, assign) NKFrameLayoutDirection	layoutDirection;
 @property (nonatomic, assign) NKFrameLayoutAlignment	layoutAlignment;
 /** Space between frames, will be applied only when primary-aligned frame is non-zero */

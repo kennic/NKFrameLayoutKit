@@ -255,7 +255,7 @@
 	}
 }
 
-- (NSInteger) numberOfFrames {
+- (NSInteger) numberOfFrameLayouts {
 	return [_frameLayoutArray count];
 }
 

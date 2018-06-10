@@ -58,7 +58,7 @@ Single FrameLayout class that handles one view's frame
 /** Width of target will be shrinked if this frame's width is smaller than target's width. NO will keep original target's width. Default is NO */
 @property (nonatomic, assign) BOOL allowContentHorizontalShrinking;
 
-@property (nonatomic, copy) void (^settingBlock)(NKFrameLayout *frameLayout);
+@property (nonatomic, copy) void (^configurationBlock)(NKFrameLayout *frameLayout);
 
 - (NKFrameLayout*) initWithTargetView:(UIView*)view;
 + (NKFrameLayout*) frameLayoutWithTargetView:(UIView*)view;

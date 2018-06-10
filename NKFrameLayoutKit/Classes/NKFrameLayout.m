@@ -85,7 +85,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	_edgeInsets							= UIEdgeInsetsZero;
 	_minSize							= CGSizeZero;
 	_maxSize							= CGSizeZero;
-	_contentHorizontalAlignment			 = UIControlContentHorizontalAlignmentFill;
+	_contentHorizontalAlignment			= UIControlContentHorizontalAlignmentFill;
 	_contentVerticalAlignment			= UIControlContentVerticalAlignmentFill;
 	_allowContentHorizontalGrowing		= NO;
 	_allowContentHorizontalShrinking	= NO;
@@ -461,8 +461,8 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	_minSize = _maxSize = size;
 }
 
-- (void) setSettingBlock:(void (^)(NKFrameLayout *))settingBlock {
-	if (settingBlock) settingBlock(self);
+- (void) setConfigurationBlock:(void (^)(NKFrameLayout *))configurationBlock {
+	if (configurationBlock) configurationBlock(self);
 }
 
 - (void) setContentAlignment:(NSString *)value {
@@ -505,11 +505,8 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 }
 
 - (void) setShowFrameDebug:(BOOL)value {
-	if (_showFrameDebug != value) {
-		_showFrameDebug = value;
-		
-		if (_showFrameDebug) [self setNeedsDisplay];
-	}
+	_showFrameDebug = value;
+	[self setNeedsDisplay];
 }
 	
 static BOOL _loggingEnabled = NO;

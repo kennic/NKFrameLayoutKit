@@ -233,7 +233,7 @@
 
 #pragma mark -
 
-- (void) setNumberOfFrames:(NSInteger)number {
+- (void) setNumberOfFrameLayouts:(NSInteger)number {
 	NSInteger count = [_frameLayoutArray count];
 	
 	if (number==0) {

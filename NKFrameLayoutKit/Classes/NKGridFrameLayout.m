@@ -19,7 +19,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype) init {
+- (NKGridFrameLayout*) init {
 	if ((self = [super init])) {
 		[self setupFrameLayouts];
 	}
@@ -27,7 +27,7 @@
 	return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame {
+- (NKGridFrameLayout*) initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		[self setupFrameLayouts];
 	}
@@ -35,7 +35,7 @@
 	return self;
 }
 
-- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+- (NKGridFrameLayout*) initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
 		[self setupFrameLayouts];
 	}
@@ -43,7 +43,7 @@
 	return self;
 }
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
+- (NKGridFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction {
 	if ((self = [self init])) {
 		self.layoutDirection = direction;
 	}
@@ -51,7 +51,7 @@
 	return self;
 }
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
+- (NKGridFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
 	if ((self = [self initWithDirection:direction])) {
 		for (UIView *view in viewArray) {
 			if ([view isKindOfClass:[NKFrameLayout class]] && view.superview==nil) {

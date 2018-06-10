@@ -13,7 +13,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype) init {
+- (NKDoubleFrameLayout*) init {
 	if ((self = [super init])) {
 		[self setupFrameLayouts];
 	}
@@ -21,7 +21,7 @@
 	return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame {
+- (NKDoubleFrameLayout*) initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		[self setupFrameLayouts];
 	}
@@ -29,7 +29,7 @@
 	return self;
 }
 
-- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+- (NKDoubleFrameLayout*) initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
 		[self setupFrameLayouts];
 	}
@@ -37,7 +37,7 @@
 	return self;
 }
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
+- (NKDoubleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction {
 	if ((self = [self init])) {
 		_layoutDirection = direction;
 	}
@@ -45,7 +45,7 @@
 	return self;
 }
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
+- (NKDoubleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
 	if ((self = [self initWithDirection:direction])) {
 		NSInteger count = [viewArray count];
 		if (count>0) {

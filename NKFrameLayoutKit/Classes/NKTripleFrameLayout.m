@@ -13,7 +13,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
+- (NKTripleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction {
 	if ((self = [super initWithDirection:direction])) {
 		_leftContentLayout = [[NKDoubleFrameLayout alloc] initWithDirection:direction];
 		_leftContentLayout.layoutAlignment = NKFrameLayoutAlignmentLeft;
@@ -27,7 +27,7 @@
 	return self;
 }
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView *> *)viewArray {
+- (NKTripleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView *> *)viewArray {
 	if ((self = [self initWithDirection:direction])) {
 		NSInteger index = 1;
 		NSInteger count = [viewArray count];

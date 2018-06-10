@@ -33,7 +33,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 
 #pragma mark - Initialization
 
-- (instancetype) init {
+- (NKFrameLayout*) init {
 	if ((self = [super init])) {
 		[self setupDefaultValues];
 	}
@@ -41,7 +41,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame {
+- (NKFrameLayout*) initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		[self setupDefaultValues];
 	}
@@ -49,7 +49,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	return self;
 }
 
-- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+- (NKFrameLayout*) initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
 		[self setupDefaultValues];
 	}
@@ -57,7 +57,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	return self;
 }
 
-- (instancetype) initWithTargetView:(UIView*)view {
+- (NKFrameLayout*) initWithTargetView:(UIView*)view {
 	if ((self = [self init])) {
 		_targetView = view;
 	}

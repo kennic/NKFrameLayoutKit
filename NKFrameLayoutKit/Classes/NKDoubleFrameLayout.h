@@ -71,7 +71,7 @@ Double FrameLayout class that handles two views' frame
 /** If YES, each frame layout will fit to its intrinsicSize. Default is NO */
 @property (nonatomic, assign) BOOL						alwaysFitToIntrinsicSize;
 
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction;
-- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;
+- (NKDoubleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction;
+- (NKDoubleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;
 
 @end

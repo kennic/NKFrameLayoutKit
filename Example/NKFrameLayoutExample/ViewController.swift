@@ -36,10 +36,14 @@ class ViewController: UIViewController {
 	var facebookButton: NKButton!
 	var twitterButton: NKButton!
 	var forgotButton: NKButton!
+	var flexibleView: UIView!
 	var frameLayout: NKGridFrameLayout!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		flexibleView = UIView()
+		flexibleView.backgroundColor = .red
 		
 		loginButton = NKButton.DefaultButton(title: "SIGN IN", color: UIColor(red:0.90, green:0.18, blue:0.15, alpha:1.00))
 		loginButton.setImage(#imageLiteral(resourceName: "login"), for: .normal)
@@ -96,14 +100,18 @@ class ViewController: UIViewController {
 		twitterButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		forgotButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		
-		frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [loginButton, facebookButton, twitterButton, forgotButton])
+		frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [loginButton, facebookButton, flexibleView, twitterButton, forgotButton])
 		frameLayout.layoutAlignment = .top
 		frameLayout.intrinsicSizeEnabled = true
-		frameLayout.spacing = 40
+		frameLayout.spacing = 10
+		frameLayout.frameLayout(at: 2).minSize = CGSize(width: 0, height: 20)
+		frameLayout.frameLayout(at: 2).isFlexible = true
+		frameLayout.edgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 20, right: 20)
 		frameLayout.showFrameDebug = true // uncomment this to see how frameLayout layout its contents
 		
 		self.view.addSubview(loginButton)
 		self.view.addSubview(facebookButton)
+		self.view.addSubview(flexibleView)
 		self.view.addSubview(twitterButton)
 		self.view.addSubview(forgotButton)
 		self.view.addSubview(frameLayout)
@@ -116,13 +124,14 @@ class ViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		let viewSize = self.view.bounds.size
-		let contentSize = frameLayout.sizeThatFits(CGSize(width: viewSize.width * 0.9, height: viewSize.height))
-		frameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
+//		let viewSize = self.view.bounds.size
+//		let contentSize = frameLayout.sizeThatFits(CGSize(width: viewSize.width * 0.9, height: viewSize.height))
+//		frameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
+		frameLayout.frame = self.view.bounds
 	}
 	
 	@objc func onButtonSelected(_ button: NKButton) {
-		print("Button Selected")
+		print("Button Selected: ", button)
 		
 		button.isLoading = true
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {

@@ -39,6 +39,8 @@ Single FrameLayout class that handles one view's frame
 @property (nonatomic, assign) BOOL			shouldCacheSize;
 /** Internal use, to be used for multi-frames */
 @property (nonatomic, assign) BOOL			intrinsicSizeEnabled;
+/** Internal use, to be used for multi-frames */
+@property (nonatomic, assign) BOOL			isFlexible;
 /** Default is UIControlContentVerticalAlignmentFill */
 @property (nonatomic, assign) UIControlContentVerticalAlignment		contentVerticalAlignment;
 /** Default is UIControlContentHorizontalAlignmentFill */

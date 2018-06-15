@@ -453,8 +453,17 @@
 	if (direction==NKFrameLayoutDirectionHorizontal) {
 		switch (self.layoutAlignment) {
 			case NKFrameLayoutAlignmentLeft:
+			{
+				NKFrameLayout *flexibleFrame = nil;
+				CGFloat flexibleLeftEdge = 0.0;
+				
 				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if (frameLayout.isFlexible) {
+						flexibleFrame = frameLayout;
+						flexibleLeftEdge = containerFrame.origin.x + usedSpace;
+						break;
+					}
 					
 					frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
 					if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
@@ -474,6 +483,39 @@
 					space = (frameContentSize.width>0 ? self.spacing : 0);
 					usedSpace += frameContentSize.width + space;
 				}
+				
+				if (flexibleFrame != nil) {
+					space = 0;
+					usedSpace = 0;
+					
+					NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
+					
+					for (NKFrameLayout *frameLayout in invertedFrameArray) {
+						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+						
+						if (frameLayout==flexibleFrame) {
+							targetFrame.origin.x	= self.edgeInsets.left;
+							targetFrame.size.width	= containerFrame.size.width - flexibleLeftEdge - usedSpace + self.edgeInsets.left;
+						}
+						else {
+							frameContentSize 		= CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+							frameContentSize 		= [frameLayout sizeThatFits:frameContentSize];
+							
+							targetFrame.origin.x	= MAX(self.bounds.size.width - frameContentSize.width - self.edgeInsets.right - usedSpace, 0);
+							targetFrame.size.width	= frameContentSize.width;
+						}
+						
+						frameLayout.frame = targetFrame;
+						
+						if (frameLayout == flexibleFrame) {
+							break;
+						}
+						
+						space = (frameContentSize.width>0 ? self.spacing : 0);
+						usedSpace += frameContentSize.width + space;
+					}
+				}
+			}
 				break;
 				
 			case NKFrameLayoutAlignmentRight:
@@ -563,8 +605,17 @@
 	else if (direction==NKFrameLayoutDirectionVertical) {
 		switch (self.layoutAlignment) {
 			case NKFrameLayoutAlignmentTop:
+			{
+				NKFrameLayout *flexibleFrame = nil;
+				CGFloat flexibleTopEdge = 0.0;
+				
 				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if (frameLayout.isFlexible) {
+						flexibleFrame = frameLayout;
+						flexibleTopEdge = containerFrame.origin.y + usedSpace;
+						break;
+					}
 					
 					frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
 					if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
@@ -584,6 +635,38 @@
 					space = (frameContentSize.height>0 ? self.spacing : 0);
 					usedSpace += frameContentSize.height + space;
 				}
+				
+				if (flexibleFrame != nil) {
+					space = 0;
+					usedSpace = 0;
+					NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
+					
+					for (NKFrameLayout *frameLayout in invertedFrameArray) {
+						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+						
+						if (frameLayout==flexibleFrame) {
+							targetFrame.origin.y	= flexibleTopEdge;
+							targetFrame.size.height	= containerFrame.size.height - flexibleTopEdge - usedSpace + self.edgeInsets.top;
+						}
+						else {
+							frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
+							frameContentSize = [frameLayout sizeThatFits:frameContentSize];
+							
+							targetFrame.origin.y = MAX(self.bounds.size.height - frameContentSize.height - self.edgeInsets.bottom - usedSpace, 0);
+							targetFrame.size.height	= frameContentSize.height;
+						}
+						
+						frameLayout.frame = targetFrame;
+						
+						if (frameLayout == flexibleFrame) {
+							break;
+						}
+						
+						space = (frameContentSize.height>0 ? self.spacing : 0);
+						usedSpace += frameContentSize.height + space;
+					}
+				}
+			}
 				break;
 				
 			case NKFrameLayoutAlignmentBottom:

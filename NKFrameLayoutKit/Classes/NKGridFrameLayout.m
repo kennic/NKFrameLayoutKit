@@ -520,10 +520,18 @@
 				
 			case NKFrameLayoutAlignmentRight:
 			{
+				NKFrameLayout *flexibleFrame = nil;
+				CGFloat flexibleRightEdge = 0.0;
+				
 				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
 					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if (frameLayout.isFlexible) {
+						flexibleFrame = frameLayout;
+						flexibleRightEdge = containerFrame.size.width - usedSpace;
+						break;
+					}
 					
 					if (!frameLayout.intrinsicSizeEnabled && (frameLayout==lastFrameLayout)) {
 						targetFrame.origin.x	= self.edgeInsets.left;
@@ -541,6 +549,44 @@
 					
 					space = (frameContentSize.width>0 ? self.spacing : 0);
 					usedSpace += frameContentSize.width + space;
+				}
+				
+				if (flexibleFrame != nil) {
+					space = 0;
+					usedSpace = 0;
+					
+					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
+						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+						
+						frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
+						if (frameLayout!=lastFrameLayout || self.intrinsicSizeEnabled) {
+							CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
+							if (!frameLayout.intrinsicSizeEnabled && (frameLayout == flexibleFrame)) {
+								frameContentSize.height = fitSize.height;
+							}
+							else {
+								frameContentSize = fitSize;
+							}
+						}
+						
+						targetFrame.origin.x = containerFrame.origin.x + usedSpace;
+						
+						if (frameLayout == flexibleFrame) {
+							targetFrame.size.width = flexibleRightEdge - usedSpace;
+						}
+						else {
+							targetFrame.size.width = frameContentSize.width;
+						}
+						
+						frameLayout.frame = targetFrame;
+						
+						if (frameLayout == flexibleFrame) {
+							break;
+						}
+						
+						space = (frameContentSize.width>0 ? self.spacing : 0);
+						usedSpace += frameContentSize.width + space;
+					}
 				}
 			}
 				break;

@@ -10,7 +10,6 @@ NKFrameLayout is a super fast and easy to use layout library for iOS and tvOS.
 ## Example
 
 ![Grid Example](/../master/example_grid.png?raw=true "NKGridFrameLayout example")
-![Triple Example](/../master/example_triple.jpg?raw=true "NKTripleFrameLayout example")
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 

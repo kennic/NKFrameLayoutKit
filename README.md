@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/NKFrameLayoutKit.svg?style=flat)](http://cocoapods.org/pods/NKFrameLayoutKit)
 [![Platform](https://img.shields.io/cocoapods/p/NKFrameLayoutKit.svg?style=flat)](http://cocoapods.org/pods/NKFrameLayoutKit)
 
+NKFrameLayout is a super fast and easy to use layout library for iOS and tvOS.
+
 ## Example
 
 ![Grid Example](/../master/example_grid.png?raw=true "NKGridFrameLayout example")
@@ -22,6 +24,10 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "NKFrameLayoutKit"
 ```
+
+## Benchmark
+NKFrameLayoutKit is in top 3 fastest layout libraries.
+![Benchmark Results](/bechmark.png "Benchmark results")
 
 ## Author
 

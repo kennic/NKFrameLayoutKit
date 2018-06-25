@@ -227,7 +227,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 				_targetFrame.size.width	= contentSize.width;
 			}
 			
-			_targetFrame.origin.x = containerFrame.origin.x + roundf(containerFrame.size.width/2 - contentSize.width/2);
+			_targetFrame.origin.x = containerFrame.origin.x + (containerFrame.size.width - contentSize.width)/2;
 			break;
 			
 		case UIControlContentHorizontalAlignmentFill:
@@ -252,7 +252,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			
 		case UIControlContentHorizontalAlignmentFit:
 			_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
-			_targetFrame.origin.x	= containerFrame.origin.x + roundf(containerFrame.size.width/2 - _targetFrame.size.width/2);
+			_targetFrame.origin.x	= containerFrame.origin.x + (containerFrame.size.width - _targetFrame.size.width)/2;
 			break;
 			
 		default:

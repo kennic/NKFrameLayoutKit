@@ -101,7 +101,7 @@ class ViewController: UIViewController {
 		forgotButton.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		
 		frameLayout = NKGridFrameLayout(direction: .vertical, andViews: [loginButton, facebookButton, flexibleView, twitterButton, forgotButton])
-		frameLayout.layoutAlignment = .bottom
+		frameLayout.layoutAlignment = .top
 		frameLayout.intrinsicSizeEnabled = true
 		frameLayout.spacing = 10
 		frameLayout.frameLayout(at: 2).minSize = CGSize(width: 0, height: 20)

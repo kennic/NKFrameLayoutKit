@@ -494,7 +494,7 @@
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						if (frameLayout==flexibleFrame) {
-							targetFrame.origin.x	= self.edgeInsets.left;
+							targetFrame.origin.x	= flexibleLeftEdge;
 							targetFrame.size.width	= containerFrame.size.width - flexibleLeftEdge - usedSpace + self.edgeInsets.left;
 						}
 						else {

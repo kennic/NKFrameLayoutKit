@@ -7,6 +7,5 @@ end
 
 target 'NKFrameLayoutExample' do
 	pod 'NKFrameLayoutKit', :path => '../'
-	pod 'NKButton'
 	
 end

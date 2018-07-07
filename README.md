@@ -24,6 +24,22 @@ it, simply add the following line to your Podfile:
 pod "NKFrameLayoutKit"
 ```
 
+## Hello world
+
+```swift
+let image = UIImage(named: "earth.jpg")
+
+let label = UILabel()
+label.text = "Hello World"
+
+let layout = NKDoubleFrameLayout(
+    direction: .horizontal,
+    andVies: [image, label])
+
+layout.edgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 8)
+layout.frame = self.bounds
+```
+
 ## Benchmark
 NKFrameLayoutKit is one of the fastest layout libraries.
 ![Benchmark Results](/bechmark.png "Benchmark results")

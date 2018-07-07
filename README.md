@@ -25,7 +25,7 @@ pod "NKFrameLayoutKit"
 ```
 
 ## Benchmark
-NKFrameLayoutKit is in top 3 fastest layout libraries.
+NKFrameLayoutKit is one of the fastest layout libraries.
 ![Benchmark Results](/bechmark.png "Benchmark results")
 
 See: [Layout libraries benchmark's project](https://github.com/layoutBox/LayoutFrameworkBenchmark)

@@ -32,13 +32,11 @@ let image = UIImage(named: "earth.jpg")
 let label = UILabel()
 label.text = "Hello World"
 
-let layout = NKDoubleFrameLayout(
-    direction: .horizontal,
-    andVies: [image, label])
-
-layout.edgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 8)
+let layout = NKDoubleFrameLayout(direction: .horizontal, andVies: [image, label])
+layout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 layout.frame = self.bounds
 ```
+![Hello World](/helloWorld.png "Hello World")
 
 ## Benchmark
 NKFrameLayoutKit is one of the fastest layout libraries.

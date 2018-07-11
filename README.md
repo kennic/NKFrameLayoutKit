@@ -33,6 +33,7 @@ let label = UILabel()
 label.text = "Hello World"
 
 let layout = NKDoubleFrameLayout(direction: .horizontal, andVies: [image, label])
+layout.spacing = 5
 layout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 layout.frame = self.bounds
 ```

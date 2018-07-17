@@ -122,7 +122,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			result.height = contentSize.width * _heightRatio;
 		}
 		else {
-			result = [self targetSizeThatFits:contentSize];
+			result = [self contentSizeThatFits:contentSize];
 		}
 		
 		result.width	= MAX(_minSize.width,  result.width);
@@ -142,7 +142,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 
 #pragma mark - Private Methods
 
-- (CGSize) targetSizeThatFits:(CGSize)size {
+- (CGSize) contentSizeThatFits:(CGSize)size {
 	CGSize result;
 	
 	if (CGSizeEqualToSize(_minSize, _maxSize) && _minSize.width>0 && _minSize.height>0) {
@@ -185,7 +185,7 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 	if (self.bounds.size.width<1 || self.bounds.size.height<1) return;
 	
 	CGRect containerFrame	= UIEdgeInsetsInsetRect(self.bounds, _edgeInsets);
-	CGSize contentSize		= _contentHorizontalAlignment!=UIControlContentHorizontalAlignmentFill || _contentVerticalAlignment!=UIControlContentVerticalAlignmentFill ? [self targetSizeThatFits:containerFrame.size] : CGSizeZero;
+	CGSize contentSize		= _contentHorizontalAlignment!=UIControlContentHorizontalAlignmentFill || _contentVerticalAlignment!=UIControlContentVerticalAlignmentFill ? [self contentSizeThatFits:containerFrame.size] : CGSizeZero;
 	
 	switch (_contentHorizontalAlignment) {
 		case UIControlContentHorizontalAlignmentLeft:

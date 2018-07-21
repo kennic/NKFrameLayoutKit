@@ -7,6 +7,8 @@
 
 NKFrameLayout is a super fast and easy to use layout library for iOS and tvOS.
 
+For Swift version, check here: [FrameLayoutKit](http://github.com/kennic/FrameLayoutKit)
+
 ## Example
 
 ![Grid Example](/../master/example_grid.png?raw=true "NKGridFrameLayout example")

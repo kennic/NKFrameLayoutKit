@@ -156,6 +156,14 @@
 					
 					frame2ContentSize	= CGSizeMake(containerFrame.size.width - frame1ContentSize.width - space, containerFrame.size.height);
 					frame2ContentSize	= [self.frameLayout2 sizeThatFits:frame2ContentSize];
+					
+					if (frame1ContentSize.width > frame2ContentSize.width) {
+						frame2ContentSize.width = frame1ContentSize.width;
+					}
+					else if (frame2ContentSize.width > frame1ContentSize.width) {
+						frame1ContentSize.width = frame2ContentSize.width;
+					}
+					
 					break;
 				}
 					

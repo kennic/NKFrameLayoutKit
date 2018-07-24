@@ -13,5 +13,6 @@
 #import "NKDoubleFrameLayout.h"
 #import "NKTripleFrameLayout.h"
 #import "NKGridFrameLayout.h"
+#import "NKStackFrameLayout.h"
 
 #endif /* NKFrameLayoutKit_h */

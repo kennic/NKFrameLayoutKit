@@ -17,6 +17,8 @@ Triple FrameLayout class that handles three views' frame
 @property (nonatomic, readonly) NKDoubleFrameLayout	*topContentLayout;
 @property (nonatomic, strong) NKFrameLayout			*centerFrameLayout;
 
-- (NKTripleFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView *> *)viewArray;
+- (instancetype) init __deprecated_msg("Use NKStackFrameLayout instead");
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction __deprecated_msg("Use NKStackFrameLayout instead");
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView *> *)viewArray __deprecated_msg("Use NKStackFrameLayout instead");
 
 @end

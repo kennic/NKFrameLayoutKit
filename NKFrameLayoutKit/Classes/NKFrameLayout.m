@@ -251,7 +251,13 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			break;
 			
 		case UIControlContentHorizontalAlignmentFit:
-			_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+			if (_allowContentHorizontalGrowing) {
+				_targetFrame.size.width	= MAX(containerFrame.size.width, contentSize.width);
+			}
+			else {
+				_targetFrame.size.width	= MIN(containerFrame.size.width, contentSize.width);
+			}
+			
 			_targetFrame.origin.x	= containerFrame.origin.x + (containerFrame.size.width - _targetFrame.size.width)/2;
 			break;
 			
@@ -325,12 +331,10 @@ const UIControlContentVerticalAlignment		UIControlContentVerticalAlignmentFit	= 
 			if (_allowContentVerticalGrowing) {
 				_targetFrame.size.height = MAX(containerFrame.size.height, contentSize.height);
 			}
-			else if (_allowContentVerticalShrinking) {
+			else {
 				_targetFrame.size.height = MIN(containerFrame.size.height, contentSize.height);
 			}
-			else {
-				_targetFrame.size.height = contentSize.height;
-			}
+			
 			_targetFrame.origin.y = containerFrame.origin.y + (containerFrame.size.height - _targetFrame.size.height)/2;
 			break;
 			

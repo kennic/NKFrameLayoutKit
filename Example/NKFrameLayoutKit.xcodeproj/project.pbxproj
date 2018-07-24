@@ -20,6 +20,7 @@
 		63975B0D1F0A1B020091CB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */; };
 		63A8264220F1EC49001FD7E3 /* BasicFrameLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264120F1EC49001FD7E3 /* BasicFrameLayoutViewController.swift */; };
 		63A8264420F1EE0E001FD7E3 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264320F1EE0E001FD7E3 /* ContentTableViewController.swift */; };
+		63B9D42E20FF464400E42704 /* DoubleFrameLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B9D42D20FF464400E42704 /* DoubleFrameLayoutViewController.swift */; };
 		E2E299137C17DFD042D9698A /* Pods_NKFrameLayoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56265F0D9ABE199E0F6BF6B2 /* Pods_NKFrameLayoutExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		63975B0E1F0A1B020091CB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A8264120F1EC49001FD7E3 /* BasicFrameLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicFrameLayoutViewController.swift; sourceTree = "<group>"; };
 		63A8264320F1EE0E001FD7E3 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
+		63B9D42D20FF464400E42704 /* DoubleFrameLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleFrameLayoutViewController.swift; sourceTree = "<group>"; };
 		776E087EF31077B9538C9D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A743AC0FE1CBCE8BF4281AF5 /* Pods_NKFrameLayoutKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NKFrameLayoutKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 				63975B041F0A1B020091CB72 /* ViewController.swift */,
 				63A8264320F1EE0E001FD7E3 /* ContentTableViewController.swift */,
 				63A8264120F1EC49001FD7E3 /* BasicFrameLayoutViewController.swift */,
+				63B9D42D20FF464400E42704 /* DoubleFrameLayoutViewController.swift */,
 				63975B061F0A1B020091CB72 /* Main.storyboard */,
 				63975B091F0A1B020091CB72 /* Assets.xcassets */,
 				63975B0B1F0A1B020091CB72 /* LaunchScreen.storyboard */,
@@ -177,7 +180,6 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				4EC2B60B80714D190629FCEC /* [CP] Embed Pods Frameworks */,
-				8E96CAEE69A492EE30F50069 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,7 +199,6 @@
 				63975AFD1F0A1B020091CB72 /* Frameworks */,
 				63975AFE1F0A1B020091CB72 /* Resources */,
 				163783118555DA4051D5D643 /* [CP] Embed Pods Frameworks */,
-				B97D1A234910EFE8C4116F89 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,14 +280,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/NKFrameLayoutKit-iOS10.3/NKFrameLayoutKit.framework",
-				"${BUILT_PRODUCTS_DIR}/NKButton/NKButton.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKFrameLayoutKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -347,36 +344,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E96CAEE69A492EE30F50069 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutKit_Tests/Pods-NKFrameLayoutKit_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B97D1A234910EFE8C4116F89 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NKFrameLayoutExample/Pods-NKFrameLayoutExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -394,6 +361,7 @@
 			files = (
 				63975B051F0A1B020091CB72 /* ViewController.swift in Sources */,
 				63975B031F0A1B020091CB72 /* AppDelegate.swift in Sources */,
+				63B9D42E20FF464400E42704 /* DoubleFrameLayoutViewController.swift in Sources */,
 				63A8264420F1EE0E001FD7E3 /* ContentTableViewController.swift in Sources */,
 				63A8264220F1EC49001FD7E3 /* BasicFrameLayoutViewController.swift in Sources */,
 			);

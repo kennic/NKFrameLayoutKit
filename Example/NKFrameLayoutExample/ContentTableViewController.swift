@@ -16,7 +16,8 @@ struct Section {
 class ContentTableViewController: UITableViewController {
 
 	let CellIdentifier = "Cell"
-	let sections: [Section] = [Section(title: "Basic NKFrameLayout", viewController: BasicFrameLayoutViewController.self)]
+	let sections: [Section] = [Section(title: "Basic NKFrameLayout", viewController: BasicFrameLayoutViewController.self),
+							   Section(title: "NKDoubleFrameLayout", viewController: DoubleFrameLayoutViewController.self)]
 	
 	var selectionBlock: ((Section) -> Void)? = nil
 	

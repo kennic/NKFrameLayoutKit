@@ -62,7 +62,7 @@ Single FrameLayout class that handles one view's frame
 
 @property (nonatomic, copy) void (^configurationBlock)(NKFrameLayout *frameLayout);
 
-- (NKFrameLayout*) initWithTargetView:(UIView*)view;
+- (instancetype) initWithTargetView:(UIView*)view;
 + (NKFrameLayout*) frameLayoutWithTargetView:(UIView*)view;
 + (BOOL) loggingEnabled;
 + (void) setLoggingEnabled:(BOOL)value;

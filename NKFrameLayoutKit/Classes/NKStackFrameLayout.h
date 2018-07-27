@@ -27,8 +27,8 @@ Grid FrameLayout class that handles multi views' frame
 /** YES to round cell size using roundf(), default is NO */
 @property (nonatomic, assign) BOOL						roundUpValue;
 
-- (NKStackFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction;
-- (NKStackFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction;
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray;
 
 - (NKFrameLayout*) addFrameLayout;
 - (NKFrameLayout*) addFrameLayout:(NKFrameLayout*)frameLayout;

@@ -9,4 +9,24 @@
 
 @implementation NKGridFrameLayout
 
+- (instancetype) init {
+	return [super init];
+}
+
+- (instancetype) initWithFrame:(CGRect)frame {
+	return [super initWithFrame:frame];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+	return [super initWithCoder:aDecoder];
+}
+
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
+	return [super initWithDirection:direction];
+}
+
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
+	return [super initWithDirection:direction andViews:viewArray];
+}
+
 @end

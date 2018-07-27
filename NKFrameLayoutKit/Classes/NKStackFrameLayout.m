@@ -19,7 +19,7 @@
 
 #pragma mark - Initialization
 
-- (NKStackFrameLayout*) init {
+- (instancetype) init {
 	if ((self = [super init])) {
 		[self setupFrameLayouts];
 	}
@@ -27,7 +27,7 @@
 	return self;
 }
 
-- (NKStackFrameLayout*) initWithFrame:(CGRect)frame {
+- (instancetype) initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		[self setupFrameLayouts];
 	}
@@ -35,7 +35,7 @@
 	return self;
 }
 
-- (NKStackFrameLayout*) initWithCoder:(NSCoder *)aDecoder {
+- (instancetype) initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
 		[self setupFrameLayouts];
 	}
@@ -43,7 +43,7 @@
 	return self;
 }
 
-- (NKStackFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction {
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction {
 	if ((self = [self init])) {
 		self.layoutDirection = direction;
 	}
@@ -51,7 +51,7 @@
 	return self;
 }
 
-- (NKStackFrameLayout*) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
+- (instancetype) initWithDirection:(NKFrameLayoutDirection)direction andViews:(NSArray<UIView*>*)viewArray {
 	if ((self = [self initWithDirection:direction])) {
 		for (UIView *view in viewArray) {
 			if ([view isKindOfClass:[NKFrameLayout class]] && view.superview==nil) {
@@ -460,7 +460,7 @@
 				CGFloat flexibleLeftEdge = 0.0;
 				
 				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if ((frameLayout.hidden && self.ignoreHiddenView) || (frameLayout.targetView.hidden && frameLayout.ignoreHiddenView)) continue;
 					if (frameLayout.isFlexible) {
 						flexibleFrame = frameLayout;
 						flexibleLeftEdge = containerFrame.origin.x + usedSpace;
@@ -528,7 +528,7 @@
 				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if ((frameLayout.hidden && self.ignoreHiddenView) || (frameLayout.targetView.hidden && frameLayout.ignoreHiddenView)) continue;
 					if (frameLayout.isFlexible) {
 						flexibleFrame = frameLayout;
 						flexibleRightEdge = containerFrame.size.width - usedSpace;
@@ -658,7 +658,7 @@
 				CGFloat flexibleTopEdge = 0.0;
 				
 				for (NKFrameLayout *frameLayout in _frameLayoutArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if ((frameLayout.hidden && self.ignoreHiddenView) || (frameLayout.targetView.hidden && frameLayout.ignoreHiddenView)) continue;
 					if (frameLayout.isFlexible) {
 						flexibleFrame = frameLayout;
 						flexibleTopEdge = containerFrame.origin.y + usedSpace;
@@ -725,7 +725,7 @@
 				NSArray *invertedFrameArray = [self invertArrayFromArray:_frameLayoutArray];
 				
 				for (NKFrameLayout *frameLayout in invertedFrameArray) {
-					if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
+					if ((frameLayout.hidden && self.ignoreHiddenView) || (frameLayout.targetView.hidden && frameLayout.ignoreHiddenView)) continue;
 					if (frameLayout.isFlexible) {
 						flexibleFrame = frameLayout;
 						flexibleBottomEdge = containerFrame.size.height - usedSpace;

@@ -620,12 +620,7 @@
                     
                     frameContentSize = CGSizeMake(containerFrame.size.width - usedSpace, containerFrame.size.height);
                     CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
-                    if (frameLayout.intrinsicSizeEnabled) {
-                        frameContentSize = fitSize;
-                    }
-                    else {
-                        frameContentSize.width = fitSize.width;
-                    }
+                    frameContentSize.width = fitSize.width;
                     
                     targetFrame.origin.x	= containerFrame.origin.x + usedSpace;
                     targetFrame.size		= frameContentSize;
@@ -820,12 +815,7 @@
                     
                     frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - usedSpace);
                     CGSize fitSize = [frameLayout sizeThatFits:frameContentSize];
-                    if (frameLayout.intrinsicSizeEnabled) {
-                        frameContentSize = fitSize;
-                    }
-                    else {
-                        frameContentSize.height = fitSize.height;
-                    }
+                    frameContentSize.height = fitSize.height;
                     
                     targetFrame.origin.y		= containerFrame.origin.y + usedSpace;
                     targetFrame.size            = frameContentSize;

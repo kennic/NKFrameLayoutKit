@@ -1,6 +1,5 @@
 # NKFrameLayoutKit
 
-[![CI Status](http://img.shields.io/travis/kennic/NKFrameLayoutKit.svg?style=flat)](https://travis-ci.org/kennic/NKFrameLayoutKit)
 [![Version](https://img.shields.io/cocoapods/v/NKFrameLayoutKit.svg?style=flat)](http://cocoapods.org/pods/NKFrameLayoutKit)
 [![License](https://img.shields.io/cocoapods/l/NKFrameLayoutKit.svg?style=flat)](http://cocoapods.org/pods/NKFrameLayoutKit)
 [![Platform](https://img.shields.io/cocoapods/p/NKFrameLayoutKit.svg?style=flat)](http://cocoapods.org/pods/NKFrameLayoutKit)
@@ -46,6 +45,14 @@ NKFrameLayoutKit is one of the fastest layout libraries.
 ![Benchmark Results](/bechmark.png "Benchmark results")
 
 See: [Layout libraries benchmark's project](https://github.com/layoutBox/LayoutFrameworkBenchmark)
+
+## Todo
+
+- [x] CocoaPods support
+- [x] Objective-C version
+- [x] Swift version
+- [ ] Examples
+- [ ] Documents
 
 ## Author
 

@@ -304,7 +304,15 @@
 				case NKFrameLayoutAlignmentLeft:
 				case NKFrameLayoutAlignmentRight:
 				{
+					NKFrameLayout *flexibleFrame = nil;
+					
 					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
+						if (frameLayout.isFlexible) {
+							flexibleFrame = frameLayout;
+							lastFrameLayout = frameLayout;
+							continue;
+						}
+						
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = CGSizeMake(containerFrame.size.width - totalSpace, containerFrame.size.height);
@@ -316,20 +324,43 @@
 						totalSpace += frameContentSize.width + space;
 						maxHeight = MAX(maxHeight, frameContentSize.height);
 					}
+					
+					if (flexibleFrame) {
+						frameContentSize = CGSizeMake(containerFrame.size.width - totalSpace, containerFrame.size.height);
+						frameContentSize = [flexibleFrame sizeThatFits:frameContentSize];
+						
+						totalSpace += frameContentSize.width;
+						maxHeight = MAX(maxHeight, frameContentSize.height);
+					}
 				}
 					break;
 					
 				case NKFrameLayoutAlignmentSplit:
 				case NKFrameLayoutAlignmentCenter:
 				{
+					NKFrameLayout *flexibleFrame = nil;
 					frameContentSize = CGSizeMake(containerFrame.size.width/(float)[self numberOfVisibleFrames], containerFrame.size.height);
 					for (NKFrameLayout *frameLayout in _frameLayoutArray) {
+						if (frameLayout.isFlexible) {
+							flexibleFrame = frameLayout;
+							lastFrameLayout = frameLayout;
+							continue;
+						}
+						
 						if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 						
 						frameContentSize = [frameLayout sizeThatFits:frameContentSize];
 						
 						space = (frameContentSize.width>0 && frameLayout!=lastFrameLayout ? self.spacing : 0);
 						totalSpace += frameContentSize.width + space;
+						maxHeight = MAX(maxHeight, frameContentSize.height);
+					}
+					
+					if (flexibleFrame) {
+						frameContentSize = CGSizeMake(containerFrame.size.width - totalSpace, containerFrame.size.height);
+						frameContentSize = [flexibleFrame sizeThatFits:frameContentSize];
+						
+						totalSpace += frameContentSize.width;
 						maxHeight = MAX(maxHeight, frameContentSize.height);
 					}
 				}
@@ -341,8 +372,14 @@
 		}
 		else if (direction==NKFrameLayoutDirectionVertical) {
 			CGFloat maxWidth = 0;
+			NKFrameLayout *flexibleFrame = nil;
 			
 			for (NKFrameLayout *frameLayout in _frameLayoutArray) {
+				if (frameLayout.isFlexible) {
+					flexibleFrame = frameLayout;
+					lastFrameLayout = frameLayout;
+					continue;
+				}
 				if (frameLayout.hidden || frameLayout.targetView.hidden) continue;
 				
 				frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - totalSpace);
@@ -352,6 +389,16 @@
 				
 				space = (frameContentSize.height>0 && frameLayout!=lastFrameLayout ? self.spacing : 0);
 				totalSpace += frameContentSize.height + space;
+				maxWidth = MAX(maxWidth, frameContentSize.width);
+			}
+			
+			if (flexibleFrame) {
+				frameContentSize = CGSizeMake(containerFrame.size.width, containerFrame.size.height - totalSpace);
+				if (self.intrinsicSizeEnabled) {
+					frameContentSize = [flexibleFrame sizeThatFits:frameContentSize];
+				}
+				
+				totalSpace += frameContentSize.height;
 				maxWidth = MAX(maxWidth, frameContentSize.width);
 			}
 			
